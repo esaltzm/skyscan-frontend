@@ -1,11 +1,11 @@
 import React from 'react'
-import Map from '../Map/Map'
+import Mapbox from '../Mapbox/Mapbox'
 import './App.css';
 
 export default function App() {
 	return (
 		<div className='App'>
-			<Map />
+			<Mapbox />
 		</div>
 	)
 }
