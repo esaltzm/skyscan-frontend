@@ -42,7 +42,7 @@ export default function DataLayer() {
 			<Plot
 				data={data}
 				layout={layout}
-				style={{ opacity: '0.75', position: 'absolute', top: '0', left: '0' }}
+				style={{ opacity: '0.7', position: 'absolute', top: '0', left: '0' }}
 			/>
 		</div>
 	)
