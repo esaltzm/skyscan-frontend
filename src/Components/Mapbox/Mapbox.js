@@ -9,11 +9,11 @@ export default function Mapbox() {
         console.log(`Bounding coordinates changed to ${bounds}`)
     }, [bounds])
 
-    const onMove = useCallback(({viewState}) => {
+    const onMove = useCallback(({ viewState }) => {
         const newCenter = [viewState.longitude, viewState.latitude];
         console.log(viewState)
     }, [])
-    
+
 
     return (
         <div className="map-container">
@@ -22,7 +22,7 @@ export default function Mapbox() {
                 initialViewState={{
                     longitude: -96,
                     latitude: 37.8,
-                    zoom: 3
+                    zoom: 4
                 }}
                 className='mapbox'
                 style={{ width: "100vw", height: "100vh", position: 'absolute', top: '0', left: '0', zIndex: '0' }}
