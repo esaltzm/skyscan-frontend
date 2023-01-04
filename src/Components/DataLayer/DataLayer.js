@@ -38,15 +38,12 @@ export default function DataLayer() {
 	}
 
 	return (
-		<>
-			<h1 style={{ position: 'absolute', zIndex: '0' }}>Test</h1>
-			<div id='data-layer'>
-				<Plot
-					data={data}
-					layout={layout}
-					style={{ opacity: '0.75' }}
-				/>
-			</div>
-		</>
+		<div id='data-layer'>
+			<Plot
+				data={data}
+				layout={layout}
+				style={{ opacity: '0.75', position: 'absolute', top: '0', left: '0' }}
+			/>
+		</div>
 	)
 }
