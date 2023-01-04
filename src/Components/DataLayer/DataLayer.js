@@ -38,7 +38,7 @@ export default function DataLayer() {
 	}
 
 	return (
-		<div id='data-layer'>
+		<div>
 			<Plot
 				data={data}
 				layout={layout}
