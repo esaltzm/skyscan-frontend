@@ -16,14 +16,10 @@ export default function DataLayer() {
 		z: gustData.map(d => d[2]),
 		type: 'contour',
 		showscale: false,
-		colorscale: [[0, 'rgb(150,0,255)'], [0.1, 'rgb(0,0,255)'], [0.25, 'rgb(83,236,255)'], [0.5, 'rgb(255,255,255)'], [0.7, 'rgb(255,224,52)'], [1, 'rgb(255,0,0)']],
-		contours: {
-			coloring: 'heatmap'
-			// line: { color: 'rgba(255,0,0,0)' }
-		},
-		line: {
-			width: 0
-		},
+		colorscale: [[0, 'rgb(150,0,255, 0.5)'], [0.1, 'rgb(0,0,255, 0.5)'], [0.25, 'rgb(83,236,255, 0.5)'], [0.5, 'rgb(255,255,255, 0.5)'], [0.7, 'rgb(255,224,52, 0.5)'], [1, 'rgb(255,0,0, 0.5)']],
+		contours: { coloring: 'heatmap' },
+		line: { width: 0 },
+		marker: { opacity: 0.5 },
 		hovertemplate: `<i>${param} ${unit}</i>: %{z:.2f}<extra></extra>`,
 	}]
 
@@ -39,15 +35,20 @@ export default function DataLayer() {
 		autosize: true,
 		width: width,
 		height: height,
+		paper_bgcolor: 'rgba(0,0,0,0)',
+		plot_bgcolor: 'rgba(0,0,0,0)'
 	}
 
 	return (
-		<div id='data-layer'>
+		<>
 			<h1 style={{ position: 'absolute', zIndex: '0' }}>Test</h1>
-			<Plot
-				data={data}
-				layout={layout}
-			/>
-		</div>
+			<div id='data-layer'>
+				<Plot
+					data={data}
+					layout={layout}
+					style={{ opacity: '0.75' }}
+				/>
+			</div>
+		</>
 	)
 }
