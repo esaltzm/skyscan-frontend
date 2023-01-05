@@ -52,15 +52,15 @@ This project was designed to visualize the weather data I extracted from the [NO
 
 ### Page layers + interacting with the map
 The react-map-gl library provides a react component called NavigationControl, which is a child of the Map component and is used to change the viewport (zoom in and out, and rotate compass direction), and the Map component supports mouse drag events to shift the viewport laterally. But after layering a transparent Plotly heatmap over the Map component, users could no longer interact with the map at all.
-<em>As a solution, I created my own navigation control component which was not a child of the map, and could therefore have a higher z-index allowing it to be clicked on. The custom Nav component interacts with the map based on the viewport state, altering zoom on click. This navigation control only supports zooming in and out, but allows some degree of interactivity with the map, which was the goal</em>
+<br/><em>As a solution, I created my own navigation control component which was not a child of the map, and could therefore have a higher z-index allowing it to be clicked on. The custom Nav component interacts with the map based on the viewport state, altering zoom on click. This navigation control only supports zooming in and out, but allows some degree of interactivity with the map, which was the goal</em>
 
 ### Plotly failing on plotting big datasets
 According to my [research](https://community.plotly.com/t/how-much-data-can-plotly-charts-handle/16), Plotly should be able to handle up to 250,000 data points, but in practice, when presented with a single time and a view of the whole U.S. (~35,000 points), Plotly began to freeze up. I suspect the 250K limit is about simple line or scatter plots, and the heatmap I am using seems more complex, as it extrapolates data between points.
-<em>To solve this, I titrated the number of data points my chart could handle, which turned out to be just around 300. Even just 300 points provided smooth visual maps, so I then filtered any requests over this limit, allowing charts to render in a more timely manner.</em>
+<br/><em>To solve this, I titrated the number of data points my chart could handle, which turned out to be just around 300. Even just 300 points provided smooth visual maps, so I then filtered any requests over this limit, allowing charts to render in a more timely manner.</em>
 
 ### Project scope and adjusting goals
 I had initially planned for this project to be a photo sharing app where people could upload and share their photos, see them on a map, and get insights into the weather at the time/place their photos were taken. The reality was that this turned out to be an overly ambitious goal, considering that most of the project week was spent learning how to interact with AWS and parsing the obscure weather data files from the NOAA (loading the data alone took more than 2 days).
-<em>On realizing that I would not be able to complete that vision in the given timeframe, I quickly scaled back to just make a frontend that could prove that the database contained the data I selected from the NOAA model. I was inspired by the now offline darksky.net web app, which made weather data visually engaging and had a great UI.</em>
+<br/><em>On realizing that I would not be able to complete that vision in the given timeframe, I quickly scaled back to just make a frontend that could prove that the database contained the data I selected from the NOAA model. I was inspired by the now offline darksky.net web app, which made weather data visually engaging and had a great UI.</em>
 
 ## Future Improvements
 - Add support for dragging the map
