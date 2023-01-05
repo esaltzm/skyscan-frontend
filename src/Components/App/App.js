@@ -9,12 +9,16 @@ import './App.css';
 
 export default function App() {
 	const [bounds, setBounds] = useState(null)
+	const [data, setData] = useState(null)
 	const [viewport, setViewport] = useState({
 		longitude: -96,
 		latitude: 37.8,
 		zoom: 4
 	})
 
+	useEffect(() => {
+		console.log('bounds: ', bounds)
+	}, [bounds])
 	return (
 		<div className='App'>
 			<Mapbox setBounds={setBounds} viewport={viewport} />
