@@ -1,6 +1,6 @@
 import { HeatmapLayer } from '@deck.gl/aggregation-layers';
 import DeckGL from 'deck.gl'
-import { Map, NavigationControl } from 'react-map-gl';
+import { MapProvider, Map, NavigationControl } from 'react-map-gl';
 import useWindowDimensions from '../WindowDimensions'
 
 export default function DataMap() {
@@ -33,6 +33,7 @@ export default function DataMap() {
                 zoom: 7,
             }}
             controller={true}
+            ContextProvider={MapProvider}
         >
             <Map
                 mapboxAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
@@ -44,7 +45,9 @@ export default function DataMap() {
                 style={{ width: "100vw", height: "100vh", position: 'absolute', top: '0', left: '0', zIndex: '0' }}
                 mapStyle="mapbox://styles/mapbox/streets-v9"
             >
-                <NavigationControl position='top-left' />
+                <div style={{ zIndex: '2' }}>
+                    <NavigationControl position='top-left' />
+                </div>
             </Map>
         </DeckGL>
     );
