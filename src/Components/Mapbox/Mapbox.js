@@ -25,6 +25,7 @@ export default function Mapbox({ setBounds, viewport }) {
                 {...viewport}
                 style={{ width: "100vw", height: "100vh", position: 'absolute', top: '0', left: '0', zIndex: '0' }}
                 mapStyle="mapbox://styles/mapbox/streets-v9"
+                onLoad={alterBounds}
             />
         </div>
     )

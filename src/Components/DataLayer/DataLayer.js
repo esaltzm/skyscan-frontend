@@ -5,17 +5,16 @@ import useWindowDimensions from '../WindowDimensions'
 export default function DataLayer({ data, param }) {
 	console.log('data layer start')
 	const { height, width } = useWindowDimensions()
-	const unit = 'm/s'
+	const units = {
+		't': '°C',
+		'gust': 'm/s',
+		'prate': 'kg/m2/s',
+		'sde': 'm',
+		'ltng': '' // unitless param
+	}
 
 	if (data) {
-		// if (param == 'ltng') {
-		// 	console.log('lightning')
-		// 	const newData = data.map((point) => {
-		// 		const newPoint = point
-		// 		point[2] == true ? newPoint[2] = 1 : newPoint[2] = 0
-		// 	})
-		// 	console.log(newData)
-		// }
+
 		var plotData = [{
 			x: data.map(d => d[1]),
 			y: data.map(d => d[0]),
@@ -26,7 +25,7 @@ export default function DataLayer({ data, param }) {
 			contours: { coloring: 'heatmap' },
 			line: { width: 0 },
 			marker: { opacity: 0.5 },
-			hovertemplate: `<i>${param} ${unit}</i>: %{z:.2f}<extra></extra>`,
+			hovertemplate: `<i>${param} (${units[param]})</i>: %{z:.2f}<extra></extra>`,
 		}]
 	}
 

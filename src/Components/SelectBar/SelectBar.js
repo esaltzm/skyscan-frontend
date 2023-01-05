@@ -1,7 +1,7 @@
 import React from 'react'
 import './SelectBar.css'
 
-export default function SelectBar({ time, setParam }) {
+export default function SelectBar({ time, setTime, setParam }) {
 
     const params = {
         'temperature': 't',
@@ -15,6 +15,11 @@ export default function SelectBar({ time, setParam }) {
         setParam(params[e.target.value])
     }
 
+    const handleTimeChange = (h) => {
+        const newTime = time + (h * 3600)
+        setTime(newTime)
+    }
+
     const convertTime = (time) => {
         const date = new Date(time * 1000)
         const hours = date.getHours()
@@ -25,13 +30,13 @@ export default function SelectBar({ time, setParam }) {
 
     return (
         <div id='select-bar'>
-            <select id='param-select' onChange={(e) => {handleParamChange(e)}}>
+            <select id='param-select' onChange={(e) => { handleParamChange(e) }}>
                 {Object.keys(params).map(p => <option>{p}</option>)}
             </select>
             {time && <div id='time-select'>
-                <button>{`(-) 3hr`}</button>
+                <button onClick={() => { handleTimeChange(-3) }}>{`(-) 3hr`}</button>
                 {convertTime(time)}
-                {time < 1672434000 && <button>{`(+) 3hr`}</button>}
+                {time < 1672434000 && <button onClick={() => { handleTimeChange(3) }}>{`(+) 3hr`}</button>}
             </div>}
         </div>
     )
