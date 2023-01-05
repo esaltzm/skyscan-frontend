@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@mapbox/geo-viewport": "^0.5.0",
+    "axios": "^1.2.2",
     "deck.gl": "^8.8.21",
     "geo-viewport": "^0.2.1",
     "mapbox": "^1.0.0-beta10",

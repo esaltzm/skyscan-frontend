@@ -18,7 +18,9 @@ export default function Mapbox({ setBounds, viewport }) {
                 mapStyle="mapbox://styles/mapbox/streets-v9"
                 onLoad={(map) => {
                     const [sw, ne] = Object.values(mapRef.current.getBounds())
-                    setBounds([Object.values(sw), Object.values(ne)])
+                    const [swLng, swLat] = Object.values(sw)
+                    const [neLng, neLat] = Object.values(ne)
+                    setBounds([[swLat, swLng], [neLat, neLng]])
                 }}
             />
         </div>
