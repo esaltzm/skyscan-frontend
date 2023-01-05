@@ -16,7 +16,7 @@ export default function App() {
 	const [viewport, setViewport] = useState({
 		longitude: -96,
 		latitude: 37.8,
-		zoom: 6
+		zoom: 5
 	})
 
 	const getData = async () => {
