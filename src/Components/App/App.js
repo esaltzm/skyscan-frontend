@@ -22,7 +22,14 @@ export default function App() {
 		const url = `https://skyscan-backend.herokuapp.com/weather/${param}/${time}/${JSON.stringify(bounds)}`
 		console.log(url)
 		const res = await axios.get(url)
-		console.log(res)
+		if (res.data.length > 2000) {
+			const smallerData = []
+			const scaleFactor = Math.round(res.data.length / 2000)
+			for (let i = 0; i < res.data.length; i += scaleFactor) {
+				smallerData.push(res.data[i])
+			}
+			setData(smallerData)
+		} else { setData(res.data) }
 	}
 
 	useEffect(() => {
@@ -32,7 +39,7 @@ export default function App() {
 	return (
 		<div className='App'>
 			<Mapbox setBounds={setBounds} viewport={viewport} />
-			<DataLayer />
+			<DataLayer data={data} setData={setData} />
 			<Nav viewport={viewport} setViewport={setViewport} />
 		</div>
 	)
