@@ -1,17 +1,23 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useCallback, useRef } from 'react'
 import Map, { NavigationControl } from 'react-map-gl'
+import { viewport, bounds } from '@mapbox/geo-viewport'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import './Mapbox.css'
+import useWindowDimensions from '../WindowDimensions'
 
-export default function Mapbox() {
-    const [bounds, setBounds] = useState(null)
+export default function Mapbox({ setBounds }) {
+    const mapRef = useRef(null)
+    let { height, width } = useWindowDimensions()
     useEffect(() => {
-        console.log(`Bounding coordinates changed to ${bounds}`)
-    }, [bounds])
-
-    const onMove = useCallback(({ viewState }) => {
-        const newCenter = [viewState.longitude, viewState.latitude];
-        console.log(viewState)
+        if (mapRef.current) {
+            const map = mapRef.current.getMap()
+            const center = map.getCenter()
+            const zoom = map.getZoom()
+            const size = map.getSize()
+            const bounds = bounds(center, zoom, [size.width, size.height])
+            console.log(bounds)
+            setBounds(bounds)
+        }
     }, [])
 
 
@@ -26,8 +32,11 @@ export default function Mapbox() {
                 }}
                 style={{ width: "100vw", height: "100vh", position: 'absolute', top: '0', left: '0', zIndex: '0' }}
                 mapStyle="mapbox://styles/mapbox/streets-v9"
+                ref={mapRef}
             >
-                <NavigationControl style={{ zIndex: '100' }} />
+                <div style={{ zIndex: '100', position: 'absolute' }}>
+                    <NavigationControl position='top-left' />
+                </div>
             </Map>
         </div>
     )
