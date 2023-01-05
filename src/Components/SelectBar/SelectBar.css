@@ -1,0 +1,9 @@
+#select-bar {
+    display: flex;
+    gap: 5px;
+}
+
+#time-select {
+    display: flex;
+    gap: 5px;
+}

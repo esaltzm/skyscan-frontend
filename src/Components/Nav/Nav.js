@@ -7,7 +7,7 @@ export default function Nav({ viewport, setViewport }) {
         setViewport(newViewport)
     }
     return (
-        <div className="Nav" style={{ display: 'flex', zIndex: "100", position: "absolute" }}>
+        <div className="Nav" style={{ display: 'flex' }}>
             <button
                 onClick={() => { zoom(1) }}>
                 +

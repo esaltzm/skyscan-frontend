@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import Mapbox from '../Mapbox/Mapbox'
 import DataLayer from '../DataLayer/DataLayer'
 import Nav from '../Nav/Nav'
+import SelectBar from '../SelectBar/SelectBar'
 import axios from 'axios'
 import './App.css';
 
@@ -11,7 +12,7 @@ export default function App() {
 	const [bounds, setBounds] = useState(null)
 	const [data, setData] = useState(null)
 	const [param, setParam] = useState('gust')
-	const [time, setTime] = useState(1641308400)
+	const [time, setTime] = useState(1672434000)
 	const [viewport, setViewport] = useState({
 		longitude: -96,
 		latitude: 37.8,
@@ -42,7 +43,10 @@ export default function App() {
 		<div className='App'>
 			<Mapbox setBounds={setBounds} viewport={viewport} />
 			<DataLayer data={data} />
-			<Nav viewport={viewport} setViewport={setViewport} />
+			<div id='menu'>
+				<Nav viewport={viewport} setViewport={setViewport} />
+				<SelectBar time={time} />
+			</div>
 		</div>
 	)
 }
