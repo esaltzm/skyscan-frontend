@@ -11,7 +11,7 @@ import './App.css';
 export default function App() {
 	const [bounds, setBounds] = useState(null)
 	const [data, setData] = useState(null)
-	const [param, setParam] = useState('gust')
+	const [param, setParam] = useState('t')
 	const [time, setTime] = useState(1672434000)
 	const [viewport, setViewport] = useState({
 		longitude: -96,
@@ -20,6 +20,7 @@ export default function App() {
 	})
 
 	const getData = async () => {
+		console.log('requesting new data')
 		const url = `https://skyscan-backend.herokuapp.com/weather/${param}/${time}/${JSON.stringify(bounds)}`
 		console.log(url)
 		const res = await axios.get(url)
@@ -30,22 +31,21 @@ export default function App() {
 				smallerData.push(res.data[i])
 			}
 			setData(smallerData)
-			console.log('data set')
 		} else { setData(res.data) }
 	}
 
 	useEffect(() => {
 		console.log('bounds: ', bounds)
-		bounds && getData()
-	}, [bounds])
+		getData()
+	}, [bounds, param])
 
 	return (
 		<div className='App'>
 			<Mapbox setBounds={setBounds} viewport={viewport} />
-			<DataLayer data={data} />
+			<DataLayer data={data} param={param} />
 			<div id='menu'>
 				<Nav viewport={viewport} setViewport={setViewport} />
-				<SelectBar time={time} />
+				<SelectBar time={time} setParam={setParam} />
 			</div>
 		</div>
 	)

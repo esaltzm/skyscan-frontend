@@ -7,6 +7,15 @@ import useWindowDimensions from '../WindowDimensions'
 
 export default function Mapbox({ setBounds, viewport }) {
     const mapRef = useRef(null)
+    const alterBounds = () => {
+        const [sw, ne] = Object.values(mapRef.current.getBounds())
+        const [swLng, swLat] = Object.values(sw)
+        const [neLng, neLat] = Object.values(ne)
+        setBounds([[swLat, swLng], [neLat, neLng]])
+    }
+    useEffect(() => {
+        mapRef.current && alterBounds()
+    }, [viewport])
 
     return (
         <div className="map-container">
@@ -16,12 +25,6 @@ export default function Mapbox({ setBounds, viewport }) {
                 {...viewport}
                 style={{ width: "100vw", height: "100vh", position: 'absolute', top: '0', left: '0', zIndex: '0' }}
                 mapStyle="mapbox://styles/mapbox/streets-v9"
-                onLoad={() => {
-                    const [sw, ne] = Object.values(mapRef.current.getBounds())
-                    const [swLng, swLat] = Object.values(sw)
-                    const [neLng, neLat] = Object.values(ne)
-                    setBounds([[swLat, swLng], [neLat, neLng]])
-                }}
             />
         </div>
     )

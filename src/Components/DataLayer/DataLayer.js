@@ -2,13 +2,20 @@ import React from 'react'
 import Plot from 'react-plotly.js'
 import useWindowDimensions from '../WindowDimensions'
 
-export default function DataLayer({ data }) {
+export default function DataLayer({ data, param }) {
 	console.log('data layer start')
 	const { height, width } = useWindowDimensions()
-	const param = 'gust'
 	const unit = 'm/s'
 
 	if (data) {
+		// if (param == 'ltng') {
+		// 	console.log('lightning')
+		// 	const newData = data.map((point) => {
+		// 		const newPoint = point
+		// 		point[2] == true ? newPoint[2] = 1 : newPoint[2] = 0
+		// 	})
+		// 	console.log(newData)
+		// }
 		var plotData = [{
 			x: data.map(d => d[1]),
 			y: data.map(d => d[0]),

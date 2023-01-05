@@ -1,7 +1,7 @@
 import React from 'react'
 import './SelectBar.css'
 
-export default function SelectBar({ time }) {
+export default function SelectBar({ time, setParam }) {
 
     const params = {
         'temperature': 't',
@@ -9,6 +9,10 @@ export default function SelectBar({ time }) {
         'wind gust speed': 'gust',
         'snow depth': 'sde',
         'lightning': 'ltng'
+    }
+
+    const handleParamChange = (e) => {
+        setParam(params[e.target.value])
     }
 
     const convertTime = (time) => {
@@ -21,7 +25,7 @@ export default function SelectBar({ time }) {
 
     return (
         <div id='select-bar'>
-            <select id='param-select'>
+            <select id='param-select' onChange={(e) => {handleParamChange(e)}}>
                 {Object.keys(params).map(p => <option>{p}</option>)}
             </select>
             {time && <div id='time-select'>
