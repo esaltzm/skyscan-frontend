@@ -6,8 +6,6 @@ import SelectBar from '../SelectBar/SelectBar'
 import axios from 'axios'
 import './App.css';
 
-//Potential way to use plotly and mapbox - make my own zoom and move buttons, link to map via state
-
 export default function App() {
 	const [bounds, setBounds] = useState(null)
 	const [data, setData] = useState(null)

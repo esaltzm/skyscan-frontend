@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react'
-import Map, { NavigationControl } from 'react-map-gl'
-import { viewport, bounds } from '@mapbox/geo-viewport'
+import Map from 'react-map-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import './Mapbox.css'
-import useWindowDimensions from '../WindowDimensions'
+// eslint-disable-next-line import/no-webpack-loader-syntax
+Map.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default
 
 export default function Mapbox({ setBounds, viewport }) {
     const mapRef = useRef(null)
