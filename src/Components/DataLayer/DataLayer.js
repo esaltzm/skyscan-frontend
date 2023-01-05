@@ -2,14 +2,13 @@ import React from 'react'
 import Plot from 'react-plotly.js'
 import useWindowDimensions from '../WindowDimensions'
 
-export default function DataLayer({ data, setData }) {
-
+export default function DataLayer({ data }) {
+	console.log('data layer start')
 	const { height, width } = useWindowDimensions()
 	const param = 'gust'
 	const unit = 'm/s'
 
 	if (data) {
-		console.log('data length: ', data.length)
 		var plotData = [{
 			x: data.map(d => d[1]),
 			y: data.map(d => d[0]),
@@ -34,6 +33,7 @@ export default function DataLayer({ data, setData }) {
 		},
 		title: false,
 		autosize: true,
+		dragmode: false,
 		width: width,
 		height: height
 	}
