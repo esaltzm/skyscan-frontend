@@ -14,7 +14,6 @@ export default function DataLayer({ data, param }) {
 	}
 
 	if (data) {
-
 		var plotData = [{
 			x: data.map(d => d[1]),
 			y: data.map(d => d[0]),

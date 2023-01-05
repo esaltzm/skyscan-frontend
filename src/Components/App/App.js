@@ -18,7 +18,6 @@ export default function App() {
 	})
 
 	const getData = async () => {
-		console.log('requesting new data')
 		const url = `https://skyscan-backend.herokuapp.com/weather/${param}/${time}/${JSON.stringify(bounds)}`
 		const res = await axios.get(url)
 		if (res.data.length > 300) {
@@ -29,7 +28,6 @@ export default function App() {
 			}
 			setData(smallerData)
 		} else { setData(res.data) }
-		console.log()
 	}
 
 	useEffect(() => {
