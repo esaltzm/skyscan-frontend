@@ -15,7 +15,7 @@ export default function App() {
 	const [viewport, setViewport] = useState({
 		longitude: -96,
 		latitude: 37.8,
-		zoom: 5
+		zoom: 4
 	})
 
 	const getData = async () => {
@@ -23,9 +23,9 @@ export default function App() {
 		console.log('start plot load')
 		const url = `https://skyscan-backend.herokuapp.com/weather/${param}/${time}/${JSON.stringify(bounds)}`
 		const res = await axios.get(url)
-		if (res.data.length > 300) {
+		if (res.data.length > 150) {
 			const smallerData = []
-			const scaleFactor = Math.round(res.data.length / 300)
+			const scaleFactor = Math.round(res.data.length / 150)
 			for (let i = 0; i < res.data.length; i += scaleFactor) {
 				smallerData.push(res.data[i])
 			}
