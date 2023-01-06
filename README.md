@@ -13,10 +13,10 @@ This project was designed to visualize the weather data I extracted from the [NO
 
 ## Features
 
-...image of app...
+![screenshot of app showing temp heatmap over u.s.](https://i.imgur.com/3W2yjpK.png)
 - Buttons to change zoom level of map and time of interest
 - Select to choose weather parameter of interest (database contains temperature, wind speed, precipitation rate, snow depth, and lightning)
-- On altering map view, parameter, or time, a spinner displays until Plotly has rendered a new heatmap with updated data
+
 
 ## Code Snippets
 
