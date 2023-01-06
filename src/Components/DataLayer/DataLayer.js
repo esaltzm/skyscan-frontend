@@ -2,8 +2,7 @@ import React from 'react'
 import Plot from 'react-plotly.js'
 import useWindowDimensions from '../WindowDimensions'
 
-export default function DataLayer({ data, param }) {
-
+export default function DataLayer({ data, param, loading, setLoading }) {
 	const { height, width } = useWindowDimensions()
 	const units = {
 		't': '°C',
@@ -49,6 +48,9 @@ export default function DataLayer({ data, param }) {
 				data={plotData}
 				layout={layout}
 				style={{ opacity: '0.7', position: 'absolute', top: '0', left: '0', zIndex: '2' }}
+				onAfterPlot={() => {
+					console.log('plot complete')
+				}}
 			/>}
 		</div>
 	)

@@ -16,6 +16,7 @@ export default function Nav({ viewport, setViewport }) {
                 onClick={() => { zoom(-1) }}>
                 -
             </button>
+            <div style={{ marginLeft: '5px', fontSize: '10px' }}>(zoom)</div>
         </div>
     )
 }

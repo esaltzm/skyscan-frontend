@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import Map from 'react-map-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import './Mapbox.css'
@@ -11,6 +11,7 @@ export default function Mapbox({ setBounds, viewport }) {
         const [neLng, neLat] = Object.values(ne)
         setBounds([[swLat, swLng], [neLat, neLng]])
     }
+    
     useEffect(() => {
         mapRef.current && alterBounds()
     }, [viewport])

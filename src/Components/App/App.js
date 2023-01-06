@@ -11,6 +11,7 @@ export default function App() {
 	const [data, setData] = useState(null)
 	const [param, setParam] = useState('t')
 	const [time, setTime] = useState(1672434000)
+	const [loading, setLoading] = useState(false)
 	const [viewport, setViewport] = useState({
 		longitude: -96,
 		latitude: 37.8,
@@ -18,6 +19,8 @@ export default function App() {
 	})
 
 	const getData = async () => {
+		setLoading(true)
+		console.log('start plot load')
 		const url = `https://skyscan-backend.herokuapp.com/weather/${param}/${time}/${JSON.stringify(bounds)}`
 		const res = await axios.get(url)
 		if (res.data.length > 300) {
@@ -37,7 +40,7 @@ export default function App() {
 	return (
 		<div className='App'>
 			<Mapbox setBounds={setBounds} viewport={viewport} />
-			<DataLayer data={data} param={param} />
+			<DataLayer data={data} param={param} loading={loading} setLoading={setLoading} />
 			<div id='menu'>
 				<Nav viewport={viewport} setViewport={setViewport} />
 				<SelectBar time={time} setTime={setTime} setParam={setParam} />

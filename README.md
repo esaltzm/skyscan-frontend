@@ -66,3 +66,4 @@ I had initially planned for this project to be a photo sharing app where people 
 - Add support for dragging the map
 - Clean up styling of nav bar and improve UI
 - Test methods of rendering the data more quickly (takes ~5-10 seconds which in a real production environment would be unacceptable)
+- Render heatmap colors based on fixed scale not dynamic depending on dataset - (ex. if the highest and lowest values on the data layer for temperature are only 5 degrees apart, do not render them as red and blue, but somewhere in the middle)
