@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './SelectBar.css'
 
 export default function SelectBar({ time, setTime, setParam }) {
+
+    const [date, setDate] = useState('2022-12-30')
 
     const params = {
         'temperature': 't',
@@ -28,9 +30,13 @@ export default function SelectBar({ time, setTime, setParam }) {
         return `${hour} ${ampm}`
     }
 
-    const convertDate = (time) => {
-        const date = new Date(time * 1000)
-        return (((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' + date.getFullYear())
+    const handleDateChange = (e) => {
+        const newDate = new Date(e.target.value)
+        const oldDate = new Date(time * 1000)
+        const difference = (newDate - oldDate) / 1000
+        console.log(newDate, oldDate, difference, time)
+        setDate(newDate.toISOString().split('T')[0])
+        setTime(time + difference)
     }
 
     return (
@@ -40,7 +46,8 @@ export default function SelectBar({ time, setTime, setParam }) {
             </select>
             {time && <div id='time-select'>
                 <button onClick={() => { handleTimeChange(-3) }}>{`(-) 3hr`}</button>
-                {time && `${convertTime(time)} - ${convertDate(time)}`}
+                {time && `${convertTime(time)}`}
+                <input type='date' value={date} min='2021-12-30' max='2022-12-30' onChange={(e) => { handleDateChange(e) }} />
                 {time < 1672434000 && <button onClick={() => { handleTimeChange(3) }}>{`(+) 3hr`}</button>}
             </div>}
         </div>
