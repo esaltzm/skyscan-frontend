@@ -3,7 +3,7 @@ import Plot from 'react-plotly.js'
 import useWindowDimensions from '../WindowDimensions'
 
 export default function DataLayer({ data, param }) {
-	console.log('data layer start')
+
 	const { height, width } = useWindowDimensions()
 	const units = {
 		't': '°C',

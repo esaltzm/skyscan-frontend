@@ -31,7 +31,6 @@ export default function App() {
 	}
 
 	useEffect(() => {
-		console.log('bounds: ', bounds)
 		bounds && getData()
 	}, [bounds, param, time])
 
