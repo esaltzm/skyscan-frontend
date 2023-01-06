@@ -2,7 +2,7 @@
 
 ## Description:
 
-This project was designed to visualize the weather data I extracted from the [NOAA RAP weather model](https://www.ncei.noaa.gov/products/weather-climate-models/rapid-refresh-update). It was build using the React framework, routing requests through a [Node/Express backend](https://github.com/esaltzm/skyscan-backend), which in turn queries an [AWS MariaDB database](https://github.com/esaltzm/weather-api) containing weather data for the continental U.S. going back one year. 
+This project was designed to visualize the weather data I extracted from the [NOAA RAP weather model](https://www.ncei.noaa.gov/products/weather-climate-models/rapid-refresh-update). It was built using the React framework, routing requests through a [Node/Express backend](https://github.com/esaltzm/skyscan-backend), which in turn queries an [AWS MariaDB database](https://github.com/esaltzm/weather-api) containing weather data for the continental U.S. going back one year. 
 
 
 ## Technologies used
