@@ -2,8 +2,6 @@ import React, { useState, useEffect, useCallback, useRef } from 'react'
 import Map from 'react-map-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import './Mapbox.css'
-// eslint-disable-next-line import/no-webpack-loader-syntax
-Map.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default
 
 export default function Mapbox({ setBounds, viewport }) {
     const mapRef = useRef(null)
