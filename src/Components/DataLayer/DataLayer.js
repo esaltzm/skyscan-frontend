@@ -5,10 +5,10 @@ import useWindowDimensions from '../WindowDimensions'
 export default function DataLayer({ data, param, loading, setLoading }) {
 	const { height, width } = useWindowDimensions()
 	const units = {
-		't': '°C',
-		'gust': 'm/s',
-		'prate': 'kg/m2/s',
-		'sde': 'm',
+		't': '°F',
+		'gust': 'mph',
+		'prate': 'mm/hour',
+		'sde': 'ft',
 		'ltng': '' // unitless param
 	}
 
@@ -31,15 +31,18 @@ export default function DataLayer({ data, param, loading, setLoading }) {
 		switch (param) {
 			case ('t'):
 				plotData[0].colorscale = [[0, 'rgb(150,0,255)'], [0.15, 'rgb(0,0,255)'], [0.3, 'rgb(83,236,255)'], [0.5, 'rgb(255,255,255)'], [0.7, 'rgb(255,224,52)'], [1, 'rgb(255,0,0)']]
+				plotData[0].z = plotData[0].z.map(t => t * 1.8 + 32) // C to F
 				break
 			case ('prate'):
 				plotData[0].colorscale = [[0, 'rgb(255,255,255'], [0.8, 'rgb(0,100,255'], [1, 'rgb(150,0,255)']]
 				break
 			case ('gust'):
 				plotData[0].colorscale = [[0, 'rgb(255,255,255'], [0.15, 'rgb(255,255,255'], [0.6, 'rgb(255,255,0)'], [0.7, 'rgb(255,150,0)'], [0.85, 'rgb(255,0,0)'], [1, 'rgb(150,0,255)']]
+				plotData[0].z = plotData[0].z.map(g => g * 2.23694) // m/s to mph
 				break
 			case ('sde'):
 				plotData[0].colorscale = [[0, 'rgb(0,0,0)'], [1, 'rgb(255,255,255)']]
+				plotData[0].z = plotData[0].z.map(d => d * 3.28084) // m to ft
 				break
 			case ('ltng'):
 				plotData[0].colorscale = [[0, 'rgb(255,255,255)'], [0.7, 'rgb(255,255,255)'], [0.8, 'rgb(0,255,255'], [0.9, 'rgb(125,255,0)'], [1, 'rgb(255,255,0)']]
