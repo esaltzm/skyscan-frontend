@@ -9,11 +9,11 @@ export default function Nav({ viewport, setViewport }) {
     }
     return (
         <div className="Nav" style={{ display: 'flex' }}>
-            <button
+            <button className='zoom-button'
                 onClick={() => { zoom(1) }}>
                 +
             </button>
-            <button
+            <button className='zoom-button'
                 onClick={() => { zoom(-1) }}>
                 -
             </button>

@@ -5,6 +5,11 @@
     justify-content: center;
 }
 
+.zoom-button {
+    height: 22px;
+    width: 22px;
+}
+
 #zoom {
     margin-left: 5px;
     font-size: 12px;
