@@ -16,12 +16,19 @@
 
 #menu {
 	display: flex;
-	flex-direction: column-reverse;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
 	gap: 5px;
 	position: absolute;
-	top: 0;
+	top: 10px;
+	margin: 0 auto;
 	left: 0;
+	right: 0;
+	width: fit-content;
+	block-size: fit-content;
 	padding: 5px;
 	z-index: 100;
-	background-color: white;
+	border-radius: 5px;
+	background-color: rgb(175, 175, 175);
 }

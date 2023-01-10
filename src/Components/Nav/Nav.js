@@ -1,4 +1,5 @@
 import React, { forceUpdate } from 'react'
+import './Nav.css'
 
 export default function Nav({ viewport, setViewport }) {
     const zoom = (n) => {
@@ -16,7 +17,7 @@ export default function Nav({ viewport, setViewport }) {
                 onClick={() => { zoom(-1) }}>
                 -
             </button>
-            <div style={{ marginLeft: '5px', fontSize: '10px' }}>(zoom)</div>
+            <div id='zoom'>(zoom)</div>
         </div>
     )
 }
