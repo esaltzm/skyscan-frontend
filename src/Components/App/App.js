@@ -20,7 +20,6 @@ export default function App() {
 
 	const getData = async () => {
 		setLoading(true)
-		console.log('start plot load')
 		const url = `https://skyscan-backend.herokuapp.com/weather/${param}/${time}/${JSON.stringify(bounds)}`
 		const res = await axios.get(url)
 		if (res.data.length > 150) {

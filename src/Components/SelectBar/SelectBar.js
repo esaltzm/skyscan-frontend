@@ -34,7 +34,6 @@ export default function SelectBar({ time, setTime, setParam }) {
         const newDate = new Date(e.target.value)
         const oldDate = new Date(time * 1000)
         const difference = (newDate - oldDate) / 1000
-        console.log(newDate, oldDate, difference, time)
         setDate(newDate.toISOString().split('T')[0])
         setTime(time + difference)
     }

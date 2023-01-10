@@ -27,7 +27,6 @@ export default function DataLayer({ data, param, loading, setLoading }) {
 	}
 
 	if (plotData) {
-		console.log(param)
 		switch (param) {
 			case ('t'):
 				plotData[0].colorscale = [[0, 'rgb(150,0,255)'], [0.15, 'rgb(0,0,255)'], [0.3, 'rgb(83,236,255)'], [0.5, 'rgb(255,255,255)'], [0.7, 'rgb(255,224,52)'], [1, 'rgb(255,0,0)']]
