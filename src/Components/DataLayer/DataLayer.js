@@ -41,6 +41,9 @@ export default function DataLayer({ data, param, loading, setLoading }) {
 			case ('sde'):
 				plotData[0].colorscale = [[0, 'rgb(0,0,0)'], [1, 'rgb(255,255,255)']]
 				break
+			case ('ltng'):
+				plotData[0].colorscale = [[0, 'rgb(255,255,255)'], [0.7, 'rgb(255,255,255)'], [0.8, 'rgb(0,100,100'], [0.9, 'rgb(125,255,0)'], [1, 'rgb(255,255,0)']]
+				break
 			default: plotData[0].colorscale = [[0, 'rgb(255,255,255)'], [1, 'rgb(0,0,0)']]
 		}
 	}
