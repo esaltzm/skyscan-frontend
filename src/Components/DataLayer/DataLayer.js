@@ -60,11 +60,16 @@ export default function DataLayer({ data, param, loading, setLoading }) {
 		height: height
 	}
 
+	const config = {
+		displayModeBar: false
+	}
+
 	return (
 		<div>
 			{data && <Plot
 				data={plotData}
 				layout={layout}
+				config={config}
 				style={{ opacity: '0.7', position: 'absolute', top: '0', left: '0', zIndex: '2' }}
 				onAfterPlot={() => {
 					console.log('plot complete')
