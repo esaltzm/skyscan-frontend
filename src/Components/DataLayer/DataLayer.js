@@ -19,12 +19,30 @@ export default function DataLayer({ data, param, loading, setLoading }) {
 			z: data.map(d => d[2]),
 			type: 'contour',
 			showscale: false,
-			colorscale: [[0, 'rgb(150,0,255)'], [0.1, 'rgb(0,0,255)'], [0.25, 'rgb(83,236,255)'], [0.5, 'rgb(255,255,255)'], [0.7, 'rgb(255,224,52)'], [1, 'rgb(255,0,0)']],
 			contours: { coloring: 'heatmap' },
 			line: { width: 0 },
 			marker: { opacity: 0.5 },
 			hovertemplate: `<i>${param} (${units[param]})</i>: %{z:.2f}<extra></extra>`,
 		}]
+	}
+
+	if (plotData) {
+		console.log(param)
+		switch (param) {
+			case ('t'):
+				plotData[0].colorscale = [[0, 'rgb(150,0,255)'], [0.15, 'rgb(0,0,255)'], [0.3, 'rgb(83,236,255)'], [0.5, 'rgb(255,255,255)'], [0.7, 'rgb(255,224,52)'], [1, 'rgb(255,0,0)']]
+				break
+			case ('prate'):
+				plotData[0].colorscale = [[0, 'rgb(255,255,255'], [0.8, 'rgb(0,100,255'], [1, 'rgb(150,0,255)']]
+				break
+			case ('gust'):
+				plotData[0].colorscale = [[0, 'rgb(255,255,255'], [0.15, 'rgb(255,255,255'], [0.6, 'rgb(255,255,0)'], [0.7, 'rgb(255,150,0)'], [0.85, 'rgb(255,0,0)'], [1, 'rgb(150,0,255)']]
+				break
+			case ('sde'):
+				plotData[0].colorscale = [[0, 'rgb(0,0,0)'], [1, 'rgb(255,255,255)']]
+				break
+			default: plotData[0].colorscale = [[0, 'rgb(255,255,255)'], [1, 'rgb(0,0,0)']]
+		}
 	}
 
 	const layout = {
