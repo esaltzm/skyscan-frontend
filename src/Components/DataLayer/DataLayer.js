@@ -70,8 +70,19 @@ export default function DataLayer({ data, param, loading, setLoading }) {
 		onAfterPlot: console.log('config done')
 	}
 
+	const handleDrag = (e) => {
+		console.log('Drag started at: ', e.clientX, e.clientY)
+		let initX = e.clientX, initY = e.clientY
+		const onDragEnd = (e) => {
+			console.log('Drag ended at: ', e.clientX, e.clientY)
+			console.log(`Delta x: ${e.clientX - initX}, Delta y: ${e.clientY - initY}`)
+			document.removeEventListener('mouseup', onDragEnd)
+		}
+		document.addEventListener('mouseup', onDragEnd)
+	}
+
 	return (
-		<div>
+		<div onMouseDown={handleDrag}>
 			{data && <Plot
 				data={plotData}
 				layout={layout}
