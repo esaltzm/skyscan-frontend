@@ -66,7 +66,8 @@ export default function DataLayer({ data, param, loading, setLoading }) {
 	}
 
 	const config = {
-		displayModeBar: false
+		displayModeBar: false,
+		onAfterPlot: console.log('config done')
 	}
 
 	return (
@@ -77,9 +78,11 @@ export default function DataLayer({ data, param, loading, setLoading }) {
 				config={config}
 				style={{ opacity: '0.7', position: 'absolute', top: '0', left: '0', zIndex: '2' }}
 				onAfterPlot={() => {
+					setLoading(false)
 					console.log('plot complete')
 				}}
 			/>}
+			{loading && <div style={{ position: 'absolue', top: '0', left: '0', zIndex: '200' }}>LOADING</div>}
 		</div>
 	)
 }
