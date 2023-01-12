@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState } from 'react'
 import Mapbox from '../Mapbox/Mapbox'
 import DataLayer from '../DataLayer/DataLayer'
 import Nav from '../Nav/Nav'
@@ -39,7 +39,7 @@ export default function App() {
 	return (
 		<div className='App'>
 			<Mapbox setBounds={setBounds} viewport={viewport} />
-			<DataLayer data={data} param={param} loading={loading} setLoading={setLoading} />
+			<DataLayer data={data} param={param} loading={loading} setLoading={setLoading} viewport={viewport} setViewport={setViewport} bounds={bounds} />
 			<div id='menu'>
 				<Nav viewport={viewport} setViewport={setViewport} />
 				<SelectBar time={time} setTime={setTime} setParam={setParam} />

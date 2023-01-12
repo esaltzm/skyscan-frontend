@@ -1,9 +1,12 @@
 import React from 'react'
 import Plot from 'react-plotly.js'
 import useWindowDimensions from '../WindowDimensions'
+import { WebMercatorViewport } from '@math.gl/web-mercator'
 
-export default function DataLayer({ data, param, loading, setLoading }) {
+export default function DataLayer({ data, param, loading, setLoading, viewport, setViewport, bounds }) {
+
 	const { height, width } = useWindowDimensions()
+
 	const units = {
 		't': '°F',
 		'gust': 'mph',
@@ -67,15 +70,25 @@ export default function DataLayer({ data, param, loading, setLoading }) {
 
 	const config = {
 		displayModeBar: false,
-		onAfterPlot: console.log('config done')
 	}
 
 	const handleDrag = (e) => {
-		console.log('Drag started at: ', e.clientX, e.clientY)
+
+		const latRange = bounds[1][0] - bounds[0][0]
+		const lngRange = bounds[1][1] - bounds[0][1]
+		const latPixels = height / latRange
+		const lngPixels = width / lngRange * -1
+
 		let initX = e.clientX, initY = e.clientY
+
 		const onDragEnd = (e) => {
-			console.log('Drag ended at: ', e.clientX, e.clientY)
-			console.log(`Delta x: ${e.clientX - initX}, Delta y: ${e.clientY - initY}`)
+			const [deltaX, deltaY] = [e.clientX - initX, e.clientY - initY]
+			const newLat = viewport.latitude + deltaY / latPixels
+			const newLng = viewport.longitude + deltaX / lngPixels
+			const newViewport = { ...viewport }
+			newViewport.latitude = newLat
+			newViewport.longitude = newLng
+			setViewport(newViewport)
 			document.removeEventListener('mouseup', onDragEnd)
 		}
 		document.addEventListener('mouseup', onDragEnd)
@@ -88,10 +101,10 @@ export default function DataLayer({ data, param, loading, setLoading }) {
 				layout={layout}
 				config={config}
 				style={{ opacity: '0.7', position: 'absolute', top: '0', left: '0', zIndex: '2' }}
-				onAfterPlot={() => {
-					setLoading(false)
-					console.log('plot complete')
-				}}
+				// onAfterPlot={() => {
+				// 	setLoading(false)
+				// 	console.log('plot complete')
+				// }}
 			/>}
 			{loading && <div style={{ position: 'absolue', top: '0', left: '0', zIndex: '200' }}>LOADING</div>}
 		</div>
