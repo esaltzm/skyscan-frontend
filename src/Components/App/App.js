@@ -6,6 +6,11 @@ import SelectBar from '../SelectBar/SelectBar'
 import axios from 'axios'
 import './App.css';
 
+//TODO: 
+// update database to have ocean + lake data (within default bounds)
+// set limit on zoom and drag to those bounds
+// loading spinner for plot refresh
+
 export default function App() {
 	const [bounds, setBounds] = useState(null)
 	const [data, setData] = useState(null)
