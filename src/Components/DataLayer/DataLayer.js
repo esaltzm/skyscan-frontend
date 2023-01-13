@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Plot from 'react-plotly.js'
 import useWindowDimensions from '../WindowDimensions'
 import { WebMercatorViewport } from '@math.gl/web-mercator'
@@ -40,7 +40,6 @@ export default function DataLayer({ data, param, loading, setLoading, viewport, 
 				break
 			case ('gust'):
 				plotData[0].colorscale = [[0, 'rgb(255,255,255'], [0.15, 'rgb(255,255,255'], [0.6, 'rgb(255,255,0)'], [0.7, 'rgb(255,150,0)'], [0.85, 'rgb(255,0,0)'], [1, 'rgb(150,0,255)']]
-				plotData[0].z = plotData[0].z.map(g => g * 2.23694) // m/s to mph
 				break
 			case ('sde'):
 				plotData[0].colorscale = [[0, 'rgb(0,0,0)'], [1, 'rgb(255,255,255)']]
@@ -70,6 +69,7 @@ export default function DataLayer({ data, param, loading, setLoading, viewport, 
 
 	const config = {
 		displayModeBar: false,
+		onAfterPlot: () => { console.log('plotted') }
 	}
 
 	const handleDrag = (e) => {
@@ -94,17 +94,22 @@ export default function DataLayer({ data, param, loading, setLoading, viewport, 
 		document.addEventListener('mouseup', onDragEnd)
 	}
 
+	useEffect(() => {
+		const plotlyContainer = document.getElementsByClassName('js-plotly-plot')
+		console.log(plotlyContainer)
+	}, [data])
+
 	return (
-		<div onMouseDown={handleDrag}>
+		<div id='myplotlydiv' onMouseDown={handleDrag}>
 			{data && <Plot
 				data={plotData}
 				layout={layout}
 				config={config}
 				style={{ opacity: '0.7', position: 'absolute', top: '0', left: '0', zIndex: '2' }}
-				// onAfterPlot={() => {
-				// 	setLoading(false)
-				// 	console.log('plot complete')
-				// }}
+				onAfterPlot={() => {
+					setLoading(false)
+					console.log('plot complete')
+				}}
 			/>}
 			{loading && <div style={{ position: 'absolue', top: '0', left: '0', zIndex: '200' }}>LOADING</div>}
 		</div>
