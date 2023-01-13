@@ -27,9 +27,9 @@ export default function App() {
 		setLoading(true)
 		const url = `https://skyscan-backend.herokuapp.com/weather/${param}/${time}/${JSON.stringify(bounds)}`
 		const res = await axios.get(url)
-		if (res.data.length > 300) {
+		if (res.data.length > 230) {
 			const smallerData = []
-			const scaleFactor = Math.round(res.data.length / 300)
+			const scaleFactor = Math.round(res.data.length / 230)
 			for (let i = 0; i < res.data.length; i += scaleFactor) {
 				smallerData.push(res.data[i])
 			}

@@ -37,6 +37,7 @@ export default function DataLayer({ data, param, loading, setLoading, viewport, 
 				break
 			case ('prate'):
 				plotData[0].colorscale = [[0, 'rgb(255,255,255'], [0.8, 'rgb(0,100,255'], [1, 'rgb(150,0,255)']]
+				plotData[0].z = plotData[0].z.map(d => d * 1000)
 				break
 			case ('gust'):
 				plotData[0].colorscale = [[0, 'rgb(255,255,255'], [0.15, 'rgb(255,255,255'], [0.6, 'rgb(255,255,0)'], [0.7, 'rgb(255,150,0)'], [0.85, 'rgb(255,0,0)'], [1, 'rgb(150,0,255)']]
