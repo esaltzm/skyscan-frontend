@@ -70,8 +70,7 @@ export default function DataLayer({ data, param, loading, setLoading, viewport, 
 	}
 
 	const config = {
-		displayModeBar: false,
-		onAfterPlot: () => { console.log('plotted') }
+		displayModeBar: false
 	}
 
 	const handleDrag = (e) => {
@@ -96,11 +95,6 @@ export default function DataLayer({ data, param, loading, setLoading, viewport, 
 		document.addEventListener('mouseup', onDragEnd)
 	}
 
-	useEffect(() => {
-		const plotlyContainer = document.getElementsByClassName('js-plotly-plot')
-		console.log(plotlyContainer)
-	}, [data])
-
 	return (
 		<div id='myplotlydiv' onMouseDown={handleDrag}>
 			{data && <Plot
@@ -108,10 +102,6 @@ export default function DataLayer({ data, param, loading, setLoading, viewport, 
 				layout={layout}
 				config={config}
 				style={{ opacity: '0.7', position: 'absolute', top: '0', left: '0', zIndex: '2' }}
-				onAfterPlot={() => {
-					setLoading(false)
-					console.log('plot complete')
-				}}
 			/>}
 			{loading && <div style={{ position: 'absolue', top: '0', left: '0', zIndex: '200' }}>LOADING</div>}
 		</div>
