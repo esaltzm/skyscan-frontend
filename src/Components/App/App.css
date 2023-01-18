@@ -32,3 +32,12 @@
 	border-radius: 5px;
 	background-color: rgb(175, 175, 175, 0.6);
 }
+
+#nav {
+	position: absolute;
+	bottom: 30px;
+	right: 10px;
+	width: fit-content;
+	block-size: fit-content;
+	z-index: 100000;
+}

@@ -1,16 +1,58 @@
 .Nav {
     display: flex;
-    flex: 1;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
 .zoom-button {
-    height: 22px;
-    width: 22px;
+    height: 25px;
+    width: 25px;
+    align-items: center;
+    display: flex;
+    gap: 0px;
+    font-size: 20px;
+    box-sizing: border-box;
+}
+
+.zoom-button:hover {
+    cursor: pointer;
+}
+
+.plus {
+    border-bottom: 0px;
+    border-radius: 4px 4px 0px 0px;
+}
+
+#plusbtn:after {
+    content: "";
+    background: rgb(210, 210, 210);
+    position: absolute;
+    bottom: 29%;
+    left: 25%;
+    width: 50%;
+    height: 1px;
+    z-index: 99999;
+}
+
+.minus {
+    border-top: 0px;
+    border-radius: 0px 0px 4px 4px;
+    font-weight: bold;
+    font-size: 25px;
 }
 
 #zoom {
     margin-left: 5px;
     font-size: 12px;
+}
+
+.controls {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.location {
+    color: rgb(128, 128, 255)
 }

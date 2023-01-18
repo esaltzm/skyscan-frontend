@@ -18,7 +18,7 @@ export default function App() {
 	const [data, setData] = useState(null)
 	const [param, setParam] = useState('t')
 	const [time, setTime] = useState(1672434000)
-	const [loading, setLoading] = useState(false)
+	const [loading, setLoading] = useState(true)
 	const [viewport, setViewport] = useState({
 		longitude: -96,
 		latitude: 37.8,
@@ -26,29 +26,27 @@ export default function App() {
 	})
 
 	const getData = async () => {
-		console.log('initialdatafetch', initialDataFetch)
+		console.time('loading')
+		setLoading(true)
+		console.log('begin loading')
 		let res = {}
 		if (initialDataFetch === false) {
-			console.time('load')
-			setLoading(true)
 			const url = `https://skyscan-backend.herokuapp.com/weather/${param}/${time}/${JSON.stringify(bounds)}`
 			res = await axios.get(url)
-			console.timeEnd('load')
 		} else {
 			res.data = InitialData['data']
 			setInitialDataFetch(false)
 		}
 		if (res.data.length > 250) {
-			console.time('filter')
 			const smallerData = []
 			const scaleFactor = Math.round(res.data.length / 250)
 			for (let i = 0; i < res.data.length; i += scaleFactor) {
 				smallerData.push(res.data[i])
 			}
 			setData(smallerData)
-			console.timeEnd('filter')
 		} else { setData(res.data) }
-
+		console.timeEnd('loading')
+		setLoading(false)
 	}
 
 	useEffect(() => {
@@ -59,8 +57,10 @@ export default function App() {
 		<div className='App'>
 			<Mapbox setBounds={setBounds} viewport={viewport} />
 			<DataLayer data={data} param={param} loading={loading} setLoading={setLoading} viewport={viewport} setViewport={setViewport} bounds={bounds} />
-			<div id='menu'>
+			<div id='nav'>
 				<Nav viewport={viewport} setViewport={setViewport} />
+			</div>
+			<div id='menu'>
 				<SelectBar time={time} setTime={setTime} setParam={setParam} />
 			</div>
 		</div>

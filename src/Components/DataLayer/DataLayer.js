@@ -4,7 +4,6 @@ import useWindowDimensions from '../WindowDimensions'
 import { WebMercatorViewport } from '@math.gl/web-mercator'
 
 export default function DataLayer({ data, param, loading, setLoading, viewport, setViewport, bounds }) {
-
 	const { height, width } = useWindowDimensions()
 
 	const units = {
@@ -97,13 +96,15 @@ export default function DataLayer({ data, param, loading, setLoading, viewport, 
 
 	return (
 		<div id='myplotlydiv' onMouseDown={handleDrag}>
-			{data && <Plot
-				data={plotData}
-				layout={layout}
-				config={config}
-				style={{ opacity: '0.7', position: 'absolute', top: '0', left: '0', zIndex: '2' }}
-			/>}
-			{loading && <div style={{ position: 'absolue', top: '0', left: '0', zIndex: '200' }}>LOADING</div>}
+			{loading
+				? <div style={{ position: 'absolue', top: '0', left: '0', zIndex: '2000', fontSize: '100px', color: 'red' }}>LOADING</div>
+				: <Plot
+					data={plotData}
+					layout={layout}
+					config={config}
+					style={{ opacity: '0.7', position: 'absolute', top: '0', left: '0', zIndex: '2' }}
+				/>
+			}
 		</div>
 	)
 }

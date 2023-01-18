@@ -1,4 +1,7 @@
-import React, { forceUpdate } from 'react'
+import React from 'react'
+import { IconContext } from 'react-icons'
+import { HiPlus, HiMinus } from 'react-icons/hi'
+import { BiCurrentLocation } from 'react-icons/bi'
 import './Nav.css'
 
 export default function Nav({ viewport, setViewport }) {
@@ -7,17 +10,28 @@ export default function Nav({ viewport, setViewport }) {
         newViewport.zoom += n
         setViewport(newViewport)
     }
+
+    const handleLocation = () => {
+        return null
+    }
     return (
-        <div className="Nav" style={{ display: 'flex' }}>
-            <button className='zoom-button'
-                onClick={() => { zoom(1) }}>
-                +
-            </button>
-            <button className='zoom-button'
-                onClick={() => { zoom(-1) }}>
-                -
-            </button>
-            <div id='zoom'>(zoom)</div>
+        <div className='controls'>
+            <div className='location Nav'>
+                <button className='zoom-button location'
+                    onClick={() => { handleLocation() }}>
+                    <BiCurrentLocation />
+                </button>
+            </div>
+            <div className="Nav" style={{ display: 'flex' }}>
+                <button id='plusbtn' className='zoom-button plus'
+                    onClick={() => { zoom(1) }}>
+                    <HiPlus />
+                </button>
+                <button className='zoom-button minus'
+                    onClick={() => { zoom(-1) }}>
+                    <HiMinus />
+                </button>
+            </div>
         </div>
     )
 }
