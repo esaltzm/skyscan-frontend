@@ -17,6 +17,7 @@ export default function Nav({ viewport, setViewport, setLoading }) {
         if (!navigator.geolocation) {
             toast.warn('Geolocation is not supported by your browser')
         } else {
+            setLoading(true)
             navigator.geolocation.getCurrentPosition((position) => {
                 const [lat, lng] = [position.coords.latitude, position.coords.longitude]
                 const newViewport = { ...viewport }
