@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import './SelectBar.css'
 
-export default function SelectBar({ time, setTime, setParam }) {
+export default function SelectBar({ time, setTime, setParam, setLoading }) {
 
     const [date, setDate] = useState('2022-12-30')
 
@@ -14,10 +14,12 @@ export default function SelectBar({ time, setTime, setParam }) {
     }
 
     const handleParamChange = (e) => {
+        setLoading(true)
         setParam(params[e.target.value])
     }
 
     const handleTimeChange = (h) => {
+        setLoading(true)
         const newTime = time + (h * 3600)
         setTime(newTime)
     }
@@ -31,6 +33,7 @@ export default function SelectBar({ time, setTime, setParam }) {
     }
 
     const handleDateChange = (e) => {
+        setLoading(true)
         const newDate = new Date(e.target.value)
         const oldDate = new Date(time * 1000)
         const difference = (newDate - oldDate) / 1000

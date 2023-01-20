@@ -24,7 +24,7 @@ export default function App() {
 		latitude: 37.8,
 		zoom: 4.0
 	})
-
+	console.log('loading', loading, 'time', time, 'bounds', bounds, 'data ?', data?.length)
 	const getData = async () => {
 		setLoading(true)
 		console.log('begin loading')
@@ -56,12 +56,16 @@ export default function App() {
 		<div className='App'>
 			<ToastContainer />
 			<Mapbox setBounds={setBounds} viewport={viewport} />
-			<DataLayer data={data} param={param} loading={loading} setLoading={setLoading} viewport={viewport} setViewport={setViewport} bounds={bounds} />
+			{loading ?
+				<div className='spinner-container'>
+					<div className='lds-spinner'><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+				</div> :
+				<DataLayer data={data} param={param} loading={loading} setLoading={setLoading} viewport={viewport} setViewport={setViewport} bounds={bounds} />}
 			<div id='nav'>
-				<Nav viewport={viewport} setViewport={setViewport} />
+				<Nav viewport={viewport} setViewport={setViewport} setLoading={setLoading} />
 			</div>
 			<div id='menu'>
-				<SelectBar time={time} setTime={setTime} setParam={setParam} />
+				<SelectBar time={time} setTime={setTime} setParam={setParam} setLoading={setLoading} />
 			</div>
 		</div>
 	)

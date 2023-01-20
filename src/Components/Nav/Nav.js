@@ -5,8 +5,9 @@ import { HiPlus, HiMinus } from 'react-icons/hi'
 import { BiCurrentLocation } from 'react-icons/bi'
 import './Nav.css'
 
-export default function Nav({ viewport, setViewport }) {
+export default function Nav({ viewport, setViewport, setLoading }) {
     const zoom = (n) => {
+        setLoading(true)
         const newViewport = { ...viewport }
         newViewport.zoom += n
         setViewport(newViewport)

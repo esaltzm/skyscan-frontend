@@ -11,7 +11,7 @@ export default function Mapbox({ setBounds, viewport }) {
         const [neLng, neLat] = Object.values(ne)
         setBounds([[swLat, swLng], [neLat, neLng]])
     }
-    
+
     useEffect(() => {
         mapRef.current && alterBounds()
     }, [viewport])
