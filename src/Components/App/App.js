@@ -24,10 +24,8 @@ export default function App() {
 		latitude: 37.8,
 		zoom: 4.0
 	})
-	console.log('loading', loading, 'time', time, 'bounds', bounds, 'data ?', data?.length)
 	const getData = async () => {
 		setLoading(true)
-		console.log('begin loading')
 		let res = {}
 		if (initialDataFetch === false) {
 			const url = `https://skyscan-backend.herokuapp.com/weather/${param}/${time}/${JSON.stringify(bounds)}`
@@ -44,7 +42,6 @@ export default function App() {
 			}
 			setData(smallerData)
 		} else { setData(res.data) }
-		console.log('done loading')
 		setLoading(false)
 	}
 

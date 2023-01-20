@@ -88,14 +88,12 @@ export default function DataLayer({ data, param, loading, setLoading, viewport, 
 			const newViewport = { ...viewport }
 			newViewport.latitude = newLat
 			newViewport.longitude = newLng
-			console.log(deltaX, deltaY)
 			if (deltaX > 5 || deltaY > 5) {
 				setLoading(true)
 				setViewport(newViewport)
 			}
 			document.removeEventListener('mouseup', onDragEnd)
 		}
-
 		document.addEventListener('mouseup', onDragEnd)
 	}
 
