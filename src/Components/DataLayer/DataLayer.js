@@ -25,7 +25,7 @@ export default function DataLayer({ data, param, loading, setLoading, viewport, 
 			colorscale: [[0, 'rgb(150,0,255)'], [0.15, 'rgb(0,0,255)'], [0.3, 'rgb(83,236,255)'], [0.5, 'rgb(255,255,255)'], [0.7, 'rgb(255,224,52)'], [1, 'rgb(255,0,0)']],
 			line: { width: 0 },
 			marker: { opacity: 0.5 },
-			hovertemplate: `<i>${param} (${units[param]})</i>: %{z:.2f}<extra></extra>`,
+			hovertemplate: `<i>%{z:.2f} ${units[param]}</i><extra></extra>`,
 		}]
 	}
 
@@ -47,7 +47,8 @@ export default function DataLayer({ data, param, loading, setLoading, viewport, 
 				plotData[0].z = plotData[0].z.map(d => d * 3.28084) // m to ft
 				break
 			case ('ltng'):
-				plotData[0].colorscale = [[0, 'rgb(255,255,255)'], [0.7, 'rgb(255,255,255)'], [0.8, 'rgb(0,255,255'], [0.9, 'rgb(125,255,0)'], [1, 'rgb(255,255,0)']]
+				plotData[0].colorscale = [[0, 'rgb(255,255,255)'], [0.5, 'rgb(255,255,255)'], [0.8, 'rgb(0,255,255'], [0.9, 'rgb(125,255,0)'], [1, 'rgb(255,255,0)']]
+				plotData[0].hovertemplate = `<i>%{z:.0f}</i><extra></extra>`
 				break
 			default: plotData[0].colorscale = [[0, 'rgb(255,255,255)'], [1, 'rgb(0,0,0)']]
 		}
