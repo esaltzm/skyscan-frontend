@@ -1,5 +1,6 @@
 import React from 'react'
 import { IconContext } from 'react-icons'
+import { toast } from 'react-toastify'
 import { HiPlus, HiMinus } from 'react-icons/hi'
 import { BiCurrentLocation } from 'react-icons/bi'
 import './Nav.css'
@@ -12,8 +13,22 @@ export default function Nav({ viewport, setViewport }) {
     }
 
     const handleLocation = () => {
-        return null
+        if (!navigator.geolocation) {
+            toast.warn('Geolocation is not supported by your browser')
+        } else {
+            navigator.geolocation.getCurrentPosition((position) => {
+                const [lat, lng] = [position.coords.latitude, position.coords.longitude]
+                const newViewport = { ...viewport }
+                newViewport.zoom = 9
+                newViewport.latitude = lat
+                newViewport.longitude = lng
+                setViewport(newViewport)
+            }, () => {
+                toast.warn('Unable to retrieve your location')
+            })
+        }
     }
+
     return (
         <div className='controls'>
             <div className='location Nav'>

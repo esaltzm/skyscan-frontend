@@ -88,7 +88,7 @@ export default function DataLayer({ data, param, loading, setLoading, viewport, 
 			const newViewport = { ...viewport }
 			newViewport.latitude = newLat
 			newViewport.longitude = newLng
-			setViewport(newViewport)
+			(deltaX > 5 && deltaY > 5) && setViewport(newViewport)
 			document.removeEventListener('mouseup', onDragEnd)
 		}
 		document.addEventListener('mouseup', onDragEnd)
@@ -97,7 +97,7 @@ export default function DataLayer({ data, param, loading, setLoading, viewport, 
 	return (
 		<div id='myplotlydiv' onMouseDown={handleDrag}>
 			{loading
-				? <div style={{ position: 'absolue', top: '0', left: '0', zIndex: '2000', fontSize: '100px', color: 'red' }}>LOADING</div>
+				? <div style={{ position: 'absolue', top: '0', left: '0', zIndex: '2000', fontSize: '100px', color: 'red', height: '100%', width: '100%', backgroundColor: 'yellow' }}>LOADING</div>
 				: <Plot
 					data={plotData}
 					layout={layout}

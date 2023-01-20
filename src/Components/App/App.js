@@ -5,10 +5,10 @@ import DataLayer from '../DataLayer/DataLayer'
 import Nav from '../Nav/Nav'
 import SelectBar from '../SelectBar/SelectBar'
 import axios from 'axios'
+import { ToastContainer } from 'react-toastify'
 import './App.css';
 
 //TODO: 
-// update database to have ocean + lake data (within default bounds)
 // set limit on zoom and drag to those bounds
 // loading spinner for plot refresh
 
@@ -26,7 +26,6 @@ export default function App() {
 	})
 
 	const getData = async () => {
-		console.time('loading')
 		setLoading(true)
 		console.log('begin loading')
 		let res = {}
@@ -45,7 +44,7 @@ export default function App() {
 			}
 			setData(smallerData)
 		} else { setData(res.data) }
-		console.timeEnd('loading')
+		console.log('done loading')
 		setLoading(false)
 	}
 
@@ -55,6 +54,7 @@ export default function App() {
 
 	return (
 		<div className='App'>
+			<ToastContainer />
 			<Mapbox setBounds={setBounds} viewport={viewport} />
 			<DataLayer data={data} param={param} loading={loading} setLoading={setLoading} viewport={viewport} setViewport={setViewport} bounds={bounds} />
 			<div id='nav'>
