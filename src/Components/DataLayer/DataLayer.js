@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { useRef } from 'react'
 import Plot from 'react-plotly.js'
 import useWindowDimensions from '../WindowDimensions'
 import { WebMercatorViewport } from '@math.gl/web-mercator'
 
 export default function DataLayer({ data, param, loading, setLoading, viewport, setViewport, bounds }) {
 	const { height, width } = useWindowDimensions()
+	const timer = useRef()
 
 	const units = {
 		't': '°F',
@@ -74,13 +75,11 @@ export default function DataLayer({ data, param, loading, setLoading, viewport, 
 	}
 
 	const handleDrag = (e) => {
-
 		const latRange = bounds[1][0] - bounds[0][0]
 		const lngRange = bounds[1][1] - bounds[0][1]
 		const latPixels = height / latRange
 		const lngPixels = width / lngRange * -1
 		let initX = e.clientX, initY = e.clientY
-
 		const onDragEnd = (e) => {
 			const [deltaX, deltaY] = [e.clientX - initX, e.clientY - initY]
 			const newLat = viewport.latitude + deltaY / latPixels
@@ -88,7 +87,8 @@ export default function DataLayer({ data, param, loading, setLoading, viewport, 
 			const newViewport = { ...viewport }
 			newViewport.latitude = newLat
 			newViewport.longitude = newLng
-			if (deltaX > 5 || deltaY > 5) {
+			console.log(deltaX, deltaY)
+			if (Math.abs(deltaX) > 5 || Math.abs(deltaY) > 5) {
 				setLoading(true)
 				setViewport(newViewport)
 			}
@@ -97,8 +97,24 @@ export default function DataLayer({ data, param, loading, setLoading, viewport, 
 		document.addEventListener('mouseup', onDragEnd)
 	}
 
+	const handleDoubleClick = (e) => {
+		console.log(e.clientX, e.clientY)
+	}
+
+	const handleClicks = (e) => {
+		clearTimeout(timer.current)
+		if (e.detail === 1) {
+			console.log('single click')
+			timer.current = setTimeout(handleDrag(e), 100)
+		} else if (e.detail === 2) {
+			console.log('x', e.clientX, e.clientY)
+			// console.log('double click')
+			handleDoubleClick(e)
+		}
+	}
+
 	return (
-		<div id='myplotlydiv' onMouseDown={handleDrag}>
+		<div id='myplotlydiv' onMouseDown={handleClicks}>
 			{data && <Plot
 				data={plotData}
 				layout={layout}
