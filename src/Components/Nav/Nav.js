@@ -14,24 +14,20 @@ export default function Nav({ viewport, setViewport, setLoading }) {
     }
 
     const handleLocation = () => {
-        console.log('handling location')
         if (!navigator.geolocation) {
             toast.warn('Geolocation is not supported by your browser')
         } else {
-            console.log('geolocation supported')
             navigator.geolocation.getCurrentPosition((position) => {
                 if (position) {
                     setLoading(true)
                     const [lat, lng] = [position.coords.latitude, position.coords.longitude]
                     const newViewport = { ...viewport }
-                    console.log('!viewport', newViewport)
                     newViewport.zoom = 9
                     newViewport.latitude = lat
                     newViewport.longitude = lng
                     setViewport(newViewport)
                 }
             }, () => {
-                console.log('unable to get loc')
                 toast.warn('Unable to retrieve your location')
             })
         }

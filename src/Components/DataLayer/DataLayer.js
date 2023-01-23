@@ -87,7 +87,6 @@ export default function DataLayer({ data, param, loading, setLoading, viewport, 
 			const newViewport = { ...viewport }
 			newViewport.latitude = newLat
 			newViewport.longitude = newLng
-			console.log(deltaX, deltaY)
 			if (Math.abs(deltaX) > 5 || Math.abs(deltaY) > 5) {
 				setLoading(true)
 				setViewport(newViewport)
@@ -98,14 +97,11 @@ export default function DataLayer({ data, param, loading, setLoading, viewport, 
 	}
 
 	const handleDoubleClick = (e) => {
-		console.log(bounds)
 		const latRange = Math.abs(bounds[1][0] - bounds[0][0])
 		const lngRange = Math.abs(bounds[1][1] - bounds[0][1])
 		const NW = [bounds[1][0], bounds[0][1]]
-		console.log(NW)
 		const latPixels = height / latRange
 		const lngPixels = width / lngRange
-		console.log('pixels per unit latlng', latPixels, lngPixels)
 		const newLat = NW[0] - e.clientY / latPixels
 		const newLng = NW[1] + e.clientX / lngPixels
 		const newViewport = { ...viewport }
@@ -118,11 +114,8 @@ export default function DataLayer({ data, param, loading, setLoading, viewport, 
 	const handleClicks = (e) => {
 		clearTimeout(timer.current)
 		if (e.detail === 1) {
-			console.log('single click')
 			timer.current = setTimeout(handleDrag(e), 100)
 		} else if (e.detail === 2) {
-			console.log('x', e.clientX, e.clientY)
-			console.log('double click')
 			handleDoubleClick(e)
 		}
 	}
