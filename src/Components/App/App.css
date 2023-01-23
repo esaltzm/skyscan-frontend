@@ -39,7 +39,7 @@
 	right: 10px;
 	width: fit-content;
 	block-size: fit-content;
-	z-index: 100000;
+	z-index: 1000;
 }
 
 .spinner-container {
@@ -150,4 +150,8 @@
 	100% {
 		opacity: 0;
 	}
+}
+
+:root {
+	--toastify-z-index: 9999;
 }

@@ -32,7 +32,7 @@
     left: 25%;
     width: 50%;
     height: 1px;
-    z-index: 99999;
+    z-index: 1000;
 }
 
 .minus {

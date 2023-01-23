@@ -6,11 +6,11 @@ import Nav from '../Nav/Nav'
 import SelectBar from '../SelectBar/SelectBar'
 import axios from 'axios'
 import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import './App.css';
 
 //TODO: 
 // set limit on zoom and drag to those bounds
-// loading spinner for plot refresh
 
 export default function App() {
 	const [initialDataFetch, setInitialDataFetch] = useState(true)
