@@ -107,7 +107,7 @@ export default function DataLayer({ data, param, loading, setLoading, viewport, 
 		const newViewport = { ...viewport }
 		newViewport.latitude = newLat
 		newViewport.longitude = newLng
-		newViewport.zoom += 2
+		newViewport.zoom++
 		setViewport(newViewport)
 	}
 
