@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import Mapbox from '../Mapbox/Mapbox'
-import InitialData from '../DataLayer/InitialData.json'
 import DataLayer from '../DataLayer/DataLayer'
 import Nav from '../Nav/Nav'
 import SelectBar from '../SelectBar/SelectBar'
@@ -8,18 +7,17 @@ import axios from 'axios'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import './App.css';
-import { isNullOrUndefined } from 'util'
 
 //TODO: 
 // set limit on zoom and drag to those bounds
 
 export default function App() {
-	const [initialDataFetch, setInitialDataFetch] = useState(true)
+
 	const [bounds, setBounds] = useState(null)
 	const [data, setData] = useState(null)
 	const [param, setParam] = useState('t')
 	const [time, setTime] = useState(null)
-	const [timeBounds, setTimeBounds] = useState(isNullOrUndefined)
+	const [timeBounds, setTimeBounds] = useState(null)
 	const [loading, setLoading] = useState(true)
 	const [viewport, setViewport] = useState({
 		longitude: -96,
@@ -29,14 +27,8 @@ export default function App() {
 
 	const getData = async () => {
 		setLoading(true)
-		let res = {}
-		if (initialDataFetch === false) {
-			const url = `https://skyscan-backend.herokuapp.com/weather/${param}/${time}/${JSON.stringify(bounds)}`
-			res = await axios.get(url)
-		} else {
-			res.data = InitialData['data']
-			setInitialDataFetch(false)
-		}
+		const url = `https://skyscan-backend.herokuapp.com/weather/${param}/${time}/${JSON.stringify(bounds)}`
+		const res = await axios.get(url)
 		if (res.data.length > 250) {
 			const smallerData = []
 			const scaleFactor = Math.round(res.data.length / 250)
