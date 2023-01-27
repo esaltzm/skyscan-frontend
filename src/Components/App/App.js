@@ -8,6 +8,7 @@ import axios from 'axios'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import './App.css';
+import { isNullOrUndefined } from 'util'
 
 //TODO: 
 // set limit on zoom and drag to those bounds
@@ -17,13 +18,15 @@ export default function App() {
 	const [bounds, setBounds] = useState(null)
 	const [data, setData] = useState(null)
 	const [param, setParam] = useState('t')
-	const [time, setTime] = useState(1672434000)
+	const [time, setTime] = useState(null)
+	const [timeBounds, setTimeBounds] = useState(isNullOrUndefined)
 	const [loading, setLoading] = useState(true)
 	const [viewport, setViewport] = useState({
 		longitude: -96,
 		latitude: 37.8,
 		zoom: 4.0
 	})
+
 	const getData = async () => {
 		setLoading(true)
 		let res = {}
@@ -45,6 +48,18 @@ export default function App() {
 		setLoading(false)
 	}
 
+	const getLatestTime = async () => {
+		const res = await axios.get('https://skyscan-backend.herokuapp.com/times')
+		const time = res.data[0].highest
+		console.log(res.data[0])
+		setTimeBounds(res.data[0])
+		setTime(time)
+	}
+
+	useEffect(() => {
+		getLatestTime()
+	}, [])
+
 	useEffect(() => {
 		bounds && getData()
 	}, [bounds, param, time])
@@ -62,7 +77,7 @@ export default function App() {
 				<Nav viewport={viewport} setViewport={setViewport} setLoading={setLoading} />
 			</div>
 			<div id='menu'>
-				<SelectBar time={time} setTime={setTime} setParam={setParam} setLoading={setLoading} />
+				<SelectBar time={time} setTime={setTime} setParam={setParam} setLoading={setLoading} timeBounds={timeBounds} />
 			</div>
 		</div>
 	)

@@ -1,7 +1,6 @@
 import React, { useRef } from 'react'
 import Plot from 'react-plotly.js'
 import useWindowDimensions from '../WindowDimensions'
-import { WebMercatorViewport } from '@math.gl/web-mercator'
 
 export default function DataLayer({ data, param, loading, setLoading, viewport, setViewport, bounds }) {
 	const { height, width } = useWindowDimensions()
