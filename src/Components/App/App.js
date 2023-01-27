@@ -43,7 +43,6 @@ export default function App() {
 	const getLatestTime = async () => {
 		const res = await axios.get('https://skyscan-backend.herokuapp.com/times')
 		const time = res.data[0].highest
-		console.log(res.data[0])
 		setTimeBounds(res.data[0])
 		setTime(time)
 	}
