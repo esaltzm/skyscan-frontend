@@ -79,6 +79,8 @@ export default function DataLayer({ data, param, loading, setLoading, viewport, 
 		const latPixels = height / latRange
 		const lngPixels = width / lngRange * -1
 		let initX = e.clientX, initY = e.clientY
+		const layer = document.getElementsByClassName('dragcover')[0]
+		layer.style.cursor = 'grab'
 		const onDragEnd = (e) => {
 			const [deltaX, deltaY] = [e.clientX - initX, e.clientY - initY]
 			const newLat = viewport.latitude + deltaY / latPixels
@@ -113,7 +115,7 @@ export default function DataLayer({ data, param, loading, setLoading, viewport, 
 	const handleClicks = (e) => {
 		clearTimeout(timer.current)
 		if (e.detail === 1) {
-			timer.current = setTimeout(handleDrag(e), 100)
+			timer.current = setTimeout(handleDrag(e), 50)
 		} else if (e.detail === 2) {
 			handleDoubleClick(e)
 		}
