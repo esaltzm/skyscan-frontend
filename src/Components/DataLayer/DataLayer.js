@@ -2,7 +2,7 @@ import React, { useRef } from 'react'
 import Plot from 'react-plotly.js'
 import useWindowDimensions from '../WindowDimensions'
 
-export default function DataLayer({ data, param, loading, setLoading, viewport, setViewport, bounds }) {
+export default function DataLayer({ data, param, loading, setLoading, viewport, setViewport, bounds, paramRange }) {
 	const { height, width } = useWindowDimensions()
 	const timer = useRef()
 
@@ -14,14 +14,19 @@ export default function DataLayer({ data, param, loading, setLoading, viewport, 
 		'ltng': '' // unitless param
 	}
 
-	if (data) {
+	if (data && paramRange) {
 		var plotData = [{
 			x: data.map(d => d[1]),
 			y: data.map(d => d[0]),
 			z: data.map(d => d[2]),
 			type: 'contour',
 			showscale: false,
-			contours: { coloring: 'heatmap' },
+			contours: {
+				coloring: 'heatmap',
+			},
+			zauto: false,
+			zmin: paramRange['min'],
+			zmax: paramRange['max'],
 			colorscale: [[0, 'rgb(150,0,255)'], [0.15, 'rgb(0,0,255)'], [0.3, 'rgb(83,236,255)'], [0.5, 'rgb(255,255,255)'], [0.7, 'rgb(255,224,52)'], [1, 'rgb(255,0,0)']],
 			line: { width: 0 },
 			marker: { opacity: 0.5 },
@@ -41,9 +46,10 @@ export default function DataLayer({ data, param, loading, setLoading, viewport, 
 				break
 			case ('gust'):
 				plotData[0].colorscale = [[0, 'rgb(255,255,255'], [0.15, 'rgb(255,255,255'], [0.6, 'rgb(255,255,0)'], [0.7, 'rgb(255,150,0)'], [0.85, 'rgb(255,0,0)'], [1, 'rgb(150,0,255)']]
+				plotData[0].z = plotData[0].z.map(g => g * 2.23694) // m/s to mph
 				break
 			case ('sde'):
-				plotData[0].colorscale = [[0, 'rgb(0,0,0)'], [1, 'rgb(255,255,255)']]
+				plotData[0].colorscale = [[0, 'rgb(0,0,0)'], [0.1, 'rgb(63,161,196)'], [0.5, 'rgb(0,0,255)'], [0.75, 'rgb(130, 0, 255)'], [1, 'rgb(255,0,255)']]
 				plotData[0].z = plotData[0].z.map(d => d * 3.28084) // m to ft
 				break
 			case ('ltng'):

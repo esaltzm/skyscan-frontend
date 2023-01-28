@@ -21,6 +21,7 @@ export default function App() {
 	const [time, setTime] = useState(null)
 	const [timeBounds, setTimeBounds] = useState(null)
 	const [loading, setLoading] = useState(true)
+	const [paramRange, setParamRange] = useState(null)
 	const [viewport, setViewport] = useState({
 		longitude: -96,
 		latitude: 37.8,
@@ -49,9 +50,35 @@ export default function App() {
 		setTime(time)
 	}
 
+	const getParamRange = async () => {
+		const res = await axios.get(`https://skyscan-backend.herokuapp.com/minmax/${time}/${param}`)
+		let range = res.data[0]
+		switch (param) {
+			case ('t'):
+				range = Object.keys(range).forEach(key => range[key] = range[key] * 1.8 + 32)
+				break
+			case ('prate'):
+				range = Object.keys(range).forEach(key => range[key] = range[key] * 1000)
+				break
+			case ('gust'):
+				range = Object.keys(range).forEach(key => range[key] = range[key] * 2.23694)
+				break
+			case ('sde'):
+				range = Object.keys(range).forEach(key => range[key] = range[key] * 3.28084)
+				break
+			default:
+				range = range
+		}
+		setParamRange(res.data[0])
+	}
+
 	useEffect(() => {
 		getLatestTime()
 	}, [])
+
+	useEffect(() => {
+		getParamRange()
+	}, [param, time])
 
 	useEffect(() => {
 		bounds && getData()
@@ -65,7 +92,7 @@ export default function App() {
 				<div className='spinner-container'>
 					<div className='lds-spinner'><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
 				</div> :
-				data && <DataLayer data={data} param={param} loading={loading} setLoading={setLoading} viewport={viewport} setViewport={setViewport} bounds={bounds} />}
+				data && <DataLayer data={data} param={param} loading={loading} setLoading={setLoading} viewport={viewport} setViewport={setViewport} bounds={bounds} paramRange={paramRange} />}
 			<div id='nav'>
 				<Nav viewport={viewport} setViewport={setViewport} setLoading={setLoading} />
 			</div>
