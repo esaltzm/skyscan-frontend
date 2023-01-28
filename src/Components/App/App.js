@@ -63,12 +63,12 @@ export default function App() {
 				<div className='spinner-container'>
 					<div className='lds-spinner'><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
 				</div> :
-				<DataLayer data={data} param={param} loading={loading} setLoading={setLoading} viewport={viewport} setViewport={setViewport} bounds={bounds} />}
+				data && <DataLayer data={data} param={param} loading={loading} setLoading={setLoading} viewport={viewport} setViewport={setViewport} bounds={bounds} />}
 			<div id='nav'>
 				<Nav viewport={viewport} setViewport={setViewport} setLoading={setLoading} />
 			</div>
 			<div id='menu'>
-				<SelectBar time={time} setTime={setTime} setParam={setParam} setLoading={setLoading} timeBounds={timeBounds} />
+				{time && <SelectBar time={time} setTime={setTime} setParam={setParam} setLoading={setLoading} timeBounds={timeBounds} />}
 			</div>
 		</div>
 	)

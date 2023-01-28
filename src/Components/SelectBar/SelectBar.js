@@ -66,8 +66,8 @@ export default function SelectBar({ time, setTime, setParam, setLoading, timeBou
             {time && <div id='time-select'>
                 <button onClick={() => { handleTimeChange(-3) }}>{`(-) 3hr`}</button>
                 {time && `${convertTime(time)}`}
+                {time < timeBounds.highest && <button onClick={() => { handleTimeChange(3) }}>{`(+) 3hr`}</button>}
                 {timeBounds && <input type='date' value={date} min={formatDate(timeBounds.lowest)} max={formatDate(timeBounds.highest)} onChange={(e) => { handleDateChange(e) }} />}
-                {time < 1672434000 && <button onClick={() => { handleTimeChange(3) }}>{`(+) 3hr`}</button>}
             </div>}
         </div>
     )

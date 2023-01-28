@@ -14,12 +14,13 @@ export default function Nav({ viewport, setViewport, setLoading }) {
     }
 
     const handleLocation = () => {
+        setLoading(true)
         if (!navigator.geolocation) {
             toast.warn('Geolocation is not supported by your browser')
+            setLoading(false)
         } else {
             navigator.geolocation.getCurrentPosition((position) => {
                 if (position) {
-                    setLoading(true)
                     const [lat, lng] = [position.coords.latitude, position.coords.longitude]
                     const newViewport = { ...viewport }
                     newViewport.zoom = 9
