@@ -34,15 +34,11 @@ export default function DataLayer({ data, param, loading, setLoading, viewport, 
 	if (plotData) {
 		switch (param) {
 			case ('t'):
-				plotData[0].colorscale = [[0, 'rgb(150,0,255)'], [0.2, 'rgb(0,0,255)'], [0.4, 'rgb(83,236,255)'], [0.5, 'rgb(255,255,255)'], [0.6, 'rgb(255,224,52)'], [0.8, 'rgb(255,0,0)'], [1, 'rgb(150,0,0)']]
 				plotData[0].z = plotData[0].z.map(t => t * 1.8 + 32) // C to F
-				console.log(Math.min(...plotData[0].z), Math.max(...plotData[0].z))
-				console.log(paramRange['min'], paramRange['max'])
-				const zmin = paramRange['min'] + Math.abs(Math.min(...plotData[0].z) - paramRange['min']) / 2
-				const zmax = paramRange['max'] - Math.abs(Math.max(...plotData[0].z) - paramRange['max']) / 2
 				plotData[0].zauto = false
-				plotData[0].zmin = zmin
-				plotData[0].zmax = zmax
+				plotData[0].zmin = 0
+				plotData[0].zmax = 100
+				plotData[0].colorscale = [[0, 'rgb(255,0,255)'], [0.15, 'rgb(180,0,255)'], [0.25, 'rgb(100,0,255)'], [0.32, 'rgb(0,0,255)'], [0.4, 'rgb(0,255,255)'], [0.5, 'rgb(255,255,255)'], [0.6, 'rgb(255,255,0)'], [0.7, 'rgb(255,180,0)'], [0.9, 'rgb(255,0,0)'], [1, 'rgb(150,0,0)']]
 				break
 			case ('prate'):
 				plotData[0].colorscale = [[0, 'rgb(255,255,255'], [0.8, 'rgb(0,100,255'], [1, 'rgb(150,0,255)']]
