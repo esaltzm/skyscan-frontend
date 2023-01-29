@@ -23,7 +23,7 @@ export default function Nav({ viewport, setViewport, setLoading }) {
                 if (position) {
                     const [lat, lng] = [position.coords.latitude, position.coords.longitude]
                     const newViewport = { ...viewport }
-                    newViewport.zoom = 9
+                    newViewport.zoom = 7
                     newViewport.latitude = lat
                     newViewport.longitude = lng
                     setViewport(newViewport)
