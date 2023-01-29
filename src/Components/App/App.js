@@ -12,6 +12,7 @@ import './App.css';
 // set limit on zoom and drag to those bounds
 // incorporate altitude data to temperature map
 // look into mapbox layers instead of plotly data layer
+// find middle ground between range(all data) and range(current view slice)
 
 export default function App() {
 
