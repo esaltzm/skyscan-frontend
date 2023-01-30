@@ -59,15 +59,17 @@ export default function SelectBar({ time, setTime, setParam, setLoading, timeBou
     }
 
     return (
-        <div id='select-bar'>
-            <select id='param-select' onChange={(e) => { handleParamChange(e) }}>
-                {Object.keys(params).map(p => <option key={p}>{p}</option>)}
-            </select>
-            {time && <div id='time-select'>
-                <button onClick={() => { handleTimeChange(-3) }}>{`(-) 3hr`}</button>
-                {time && `${convertTime(time)}`}
-                {time < timeBounds.highest && <button onClick={() => { handleTimeChange(3) }}>{`(+) 3hr`}</button>}
-                {timeBounds && <input type='date' value={date} min={formatDate(timeBounds.lowest)} max={formatDate(timeBounds.highest)} onChange={(e) => { handleDateChange(e) }} />}
+        <div>
+            {time && <div id='select-bar'>
+                <select id='param-select' onChange={(e) => { handleParamChange(e) }}>
+                    {Object.keys(params).map(p => <option key={p}>{p}</option>)}
+                </select>
+                <div id='time-select'>
+                    <button onClick={() => { handleTimeChange(-3) }}>{`(-) 3hr`}</button>
+                    {`${convertTime(time)}`}
+                    {time < timeBounds.highest && <button onClick={() => { handleTimeChange(3) }}>{`(+) 3hr`}</button>}
+                    {timeBounds && <input type='date' value={date} min={formatDate(timeBounds.lowest)} max={formatDate(timeBounds.highest)} onChange={(e) => { handleDateChange(e) }} />}
+                </div>
             </div>}
         </div>
     )
