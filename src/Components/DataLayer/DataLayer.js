@@ -38,14 +38,17 @@ export default function DataLayer({ data, param, loading, setLoading, viewport, 
 				plotData[0].zauto = false
 				plotData[0].zmin = -10
 				plotData[0].zmax = 110
-				plotData[0].colorscale = [[0, 'rgb(255, 180, 255)'], [0.1, 'rgb(255,0,255)'], [0.2, 'rgb(180,0,255)'], [0.27, 'rgb(100,0,255)'], [0.35, 'rgb(0,0,255)'], [0.42, 'rgb(0,255,255)'], [0.5, 'rgb(255,255,255)'], [0.6, 'rgb(255,255,0)'], [0.7, 'rgb(255,180,0)'], [0.8, 'rgb(255,0,0)'], [0.9, 'rgb(255,0,255)'], [1, 'rgb(255, 180, 255)']]
+				plotData[0].colorscale = [[0, 'rgb(255, 180, 255)'], [0.1, 'rgb(255,0,255)'], [0.2, 'rgb(180,0,255)'], [0.27, 'rgb(100,0,255)'], [0.35, 'rgb(0,0,255)'], [0.42, 'rgb(0,255,255)'], [0.5, 'rgb(255,255,255)'], [0.6, 'rgb(255,255,0)'], [0.7, 'rgb(255,180,0)'], [0.8, 'rgb(255,0,0)'], [0.9, 'rgb(255,0,255)'], [1, 'rgb(255,180,255)']]
 				break
 			case ('prate'):
 				plotData[0].colorscale = [[0, 'rgb(255,255,255'], [0.8, 'rgb(0,100,255'], [1, 'rgb(150,0,255)']]
 				plotData[0].z = plotData[0].z.map(d => d * 1000)
 				break
 			case ('gust'):
-				plotData[0].colorscale = [[0, 'rgb(255,255,255'], [0.15, 'rgb(255,255,255'], [0.6, 'rgb(255,255,0)'], [0.7, 'rgb(255,150,0)'], [0.85, 'rgb(255,0,0)'], [1, 'rgb(150,0,255)']]
+				plotData[0].zauto = false
+				plotData[0].zmin = 0
+				plotData[0].zmax = 70
+				plotData[0].colorscale = [[0, 'rgb(255,255,255'], [0.142, 'rgb(255,255,255'], [0.28, 'rgb(255,255,130)'], [0.4, 'rgb(255,255,0)'], [0.6, 'rgb(255,0,0)'], [0.8, 'rgb(150,0,255)'], [1, 'rgb(255,255,255)']]
 				plotData[0].z = plotData[0].z.map(g => g * 2.23694) // m/s to mph
 				break
 			case ('sde'):
