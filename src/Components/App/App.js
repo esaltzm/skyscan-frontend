@@ -98,9 +98,9 @@ export default function App() {
 			<div id='nav'>
 				<Nav viewport={viewport} setViewport={setViewport} setLoading={setLoading} />
 			</div>
-			<div id='menu'>
-				{time && <SelectBar time={time} setTime={setTime} setParam={setParam} setLoading={setLoading} timeBounds={timeBounds} />}
-			</div>
+			{time && <div id='menu'>
+				<SelectBar time={time} setTime={setTime} setParam={setParam} setLoading={setLoading} timeBounds={timeBounds} />
+			</div>}
 		</div>
 	)
 }
