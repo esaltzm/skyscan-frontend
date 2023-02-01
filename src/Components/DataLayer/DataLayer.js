@@ -83,15 +83,21 @@ export default function DataLayer({ data, param, loading, setLoading, viewport, 
 	}
 
 	const handleDrag = (e) => {
+		const isTouchEvent = e.type === 'touchstart'
+		const initX = isTouchEvent ? e.touches[0].clientX : e.clientX
+		const initY = isTouchEvent ? e.touches[0].clientY : e.clientY
 		const latRange = bounds[1][0] - bounds[0][0]
 		const lngRange = bounds[1][1] - bounds[0][1]
 		const latPixels = height / latRange
 		const lngPixels = width / lngRange * -1
-		let initX = e.clientX, initY = e.clientY
 		const layer = document.getElementsByClassName('dragcover')[0]
 		layer.style.cursor = 'grab'
+
 		const onDragEnd = (e) => {
-			const [deltaX, deltaY] = [e.clientX - initX, e.clientY - initY]
+			const isTouchEvent = e.type === 'touchend'
+			const clientX = isTouchEvent ? e.changedTouches[0].clientX : e.clientX
+			const clientY = isTouchEvent ? e.changedTouches[0].clientY : e.clientY
+			const [deltaX, deltaY] = [clientX - initX, clientY - initY]
 			const newLat = viewport.latitude + deltaY / latPixels
 			const newLng = viewport.longitude + deltaX / lngPixels
 			const newViewport = { ...viewport }
@@ -101,9 +107,9 @@ export default function DataLayer({ data, param, loading, setLoading, viewport, 
 				setLoading(true)
 				setViewport(newViewport)
 			}
-			document.removeEventListener('mouseup', onDragEnd)
+			document.removeEventListener(isTouchEvent ? 'touchend' : 'mouseup', onDragEnd)
 		}
-		document.addEventListener('mouseup', onDragEnd)
+		document.addEventListener(isTouchEvent ? 'touchend' : 'mouseup', onDragEnd)
 	}
 
 	const handleDoubleClick = (e) => {
