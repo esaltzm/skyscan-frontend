@@ -143,12 +143,14 @@ export default function DataLayer({ data, param, loading, setLoading, viewport, 
 
 	const handleClicks = (e) => {
 		clearTimeout(timer.current)
-		if (e.detail === 1) {
-			timer.current = setTimeout(handleDrag(e), 50)
-		} else if (e.detail === 2) {
+		const clickCount = e.type === 'touchend' ? e.changedTouches.length : e.detail
+		if (clickCount === 1) {
+			timer.current = setTimeout(() => handleDrag(e), 50)
+		} else if (clickCount === 2) {
 			handleDoubleClick(e)
 		}
 	}
+
 
 	return (
 		<div id='myplotlydiv' onMouseDown={handleClicks}>
