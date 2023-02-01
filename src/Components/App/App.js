@@ -69,7 +69,7 @@ export default function App() {
 				range = Object.keys(range).forEach(key => range[key] = range[key] * 3.28084)
 				break
 			default:
-				range = range
+				range = res.data[0]
 		}
 		setParamRange(res.data[0])
 	}
