@@ -7,3 +7,44 @@
     display: flex;
     gap: 5px;
 }
+
+.clock {
+    padding: 3px;
+    height: 17px;
+}
+
+.clock:hover {
+    cursor: pointer;
+}
+
+input {
+    width: 110px;
+}
+
+select {
+    width: 120px;
+}
+
+@media (min-width: 480px) {
+    .clock-forward {
+        margin-left: 2px;
+    }
+
+    #select-bar,
+    #time-select {
+        gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    #select-bar,
+    #time-select {
+        gap: 10px;
+    }
+
+    #menu {
+        top: 0px !important;
+        width: 100% !important;
+    }
+}

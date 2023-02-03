@@ -65,9 +65,11 @@ export default function SelectBar({ time, setTime, setParam, setLoading, timeBou
                     {Object.keys(params).map(p => <option key={p}>{p}</option>)}
                 </select>
                 <div id='time-select'>
-                    <button onClick={() => { handleTimeChange(-3) }}>{`(-) 3hr`}</button>
+                    <img src='clock-back.svg' className='button-img clock' onClick={() => { handleTimeChange(-3) }} />
                     {`${convertTime(time)}`}
-                    {time < timeBounds.highest && <button onClick={() => { handleTimeChange(3) }}>{`(+) 3hr`}</button>}
+                    {time < timeBounds.highest &&
+                        <img src='clock-forward.svg' className='button-img clock clock-forward' onClick={() => { handleTimeChange(3) }} />
+                    }
                     {timeBounds && <input type='date' value={date} min={formatDate(timeBounds.lowest)} max={formatDate(timeBounds.highest)} onChange={(e) => { handleDateChange(e) }} />}
                 </div>
             </div>}
