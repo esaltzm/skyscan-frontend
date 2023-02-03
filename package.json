@@ -6,6 +6,7 @@
     "@mapbox/geo-viewport": "^0.5.0",
     "@math.gl/web-mercator": "^3.6.3",
     "axios": "^1.2.2",
+    "body-scroll-lock": "^4.0.0-beta.0",
     "deck.gl": "^8.8.21",
     "geo-viewport": "^0.2.1",
     "mapbox": "^1.0.0-beta10",

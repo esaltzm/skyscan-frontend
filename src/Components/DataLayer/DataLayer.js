@@ -1,11 +1,12 @@
-import React, { useRef } from 'react'
+import React, { useRef, useEffect } from 'react'
 import Plot from 'react-plotly.js'
 import useWindowDimensions from '../WindowDimensions'
+import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock'
 
 export default function DataLayer({ data, param, loading, setLoading, viewport, setViewport, bounds, paramRange }) {
 	const { height, width } = useWindowDimensions()
 	const timer = useRef()
-
+	const layer = useRef(null)
 	const units = {
 		't': '°F',
 		'gust': 'mph',
@@ -108,8 +109,6 @@ export default function DataLayer({ data, param, loading, setLoading, viewport, 
 
 	const handleDragMobile = (e) => {
 		console.log('handling drag')
-		e.preventDefault()
-		e.stopPropagation()
 		const latRange = bounds[1][0] - bounds[0][0]
 		const lngRange = bounds[1][1] - bounds[0][1]
 		const latPixels = height / latRange
@@ -135,8 +134,6 @@ export default function DataLayer({ data, param, loading, setLoading, viewport, 
 		document.addEventListener("touchend", onTouchEnd)
 	}
 
-
-
 	const handleDoubleClick = (e) => {
 		const latRange = Math.abs(bounds[1][0] - bounds[0][0])
 		const lngRange = Math.abs(bounds[1][1] - bounds[0][1])
@@ -161,29 +158,18 @@ export default function DataLayer({ data, param, loading, setLoading, viewport, 
 		}
 	}
 
-	const handleTouch = (e) => {
-		const touch = e.changedTouches[0]
-		const startX = touch.clientX
-		const startY = touch.clientY
-
-		const handleTouchMove = (e) => {
-			const touch = e.changedTouches[0]
-			const deltaX = touch.clientX - startX
-			const deltaY = touch.clientY - startY
-			if (Math.abs(deltaX) > 10 || Math.abs(deltaY) > 10) {
-				handleDragMobile(e)
-			}
+	useEffect(() => {
+		const initialStyles = {
+			overflow: document.body.style.overflow,
 		}
-		document.addEventListener("touchmove", handleTouchMove)
-		setTimeout(() => {
-			document.removeEventListener("touchmove", handleTouchMove)
-		}, 50)
-	}
-
-
+		document.body.style.overflow = "hidden"
+		return () => {
+			document.body.style.overflow = initialStyles.overflow;
+		}
+	}, [])
 
 	return (
-		<div id='myplotlydiv' onMouseDown={handleClicks} onTouchStart={handleDragMobile}>
+		<div id='myplotlydiv' onMouseDown={handleClicks} onTouchStart={handleDragMobile} ref={layer}>
 			{data && <Plot
 				data={plotData}
 				layout={layout}

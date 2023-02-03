@@ -1,6 +1,6 @@
-body,
-html {
+body.scroll-locked {
     overflow: hidden;
     position: fixed;
-    height: 100%
+    top: 0;
+    left: 0;
 }
