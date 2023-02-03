@@ -1,0 +1,6 @@
+body,
+html {
+    overflow: hidden;
+    position: fixed;
+    height: 100%
+}

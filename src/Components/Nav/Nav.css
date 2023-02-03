@@ -83,7 +83,6 @@
 
     #nav {
         bottom: 10px !important;
-
     }
 
     .plus,
@@ -92,7 +91,7 @@
     }
 
     .location-img {
-        margin-left: -9px;
+        margin-left: -7px;
         margin-top: 3px;
     }
 }

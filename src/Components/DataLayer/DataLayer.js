@@ -106,6 +106,37 @@ export default function DataLayer({ data, param, loading, setLoading, viewport, 
 		document.addEventListener('mouseup', onDragEnd)
 	}
 
+	const handleDragMobile = (e) => {
+		console.log('handling drag')
+		e.preventDefault()
+		e.stopPropagation()
+		const latRange = bounds[1][0] - bounds[0][0]
+		const lngRange = bounds[1][1] - bounds[0][1]
+		const latPixels = height / latRange
+		const lngPixels = width / lngRange * -1
+		let initX = e.touches[0].pageX
+		let initY = e.touches[0].pageY
+		const onTouchEnd = (e) => {
+			console.log('drag complete')
+			const deltaX = e.changedTouches[0].pageX - initX
+			const deltaY = e.changedTouches[0].pageY - initY
+			const newLat = viewport.latitude + deltaY / latPixels
+			const newLng = viewport.longitude + deltaX / lngPixels
+			const newViewport = { ...viewport }
+			newViewport.latitude = newLat
+			newViewport.longitude = newLng
+			if (Math.abs(deltaX) > 5 || Math.abs(deltaY) > 5) {
+				console.log('changing viewport')
+				setLoading(true)
+				setViewport(newViewport)
+			}
+			document.removeEventListener("touchend", onTouchEnd)
+		}
+		document.addEventListener("touchend", onTouchEnd)
+	}
+
+
+
 	const handleDoubleClick = (e) => {
 		const latRange = Math.abs(bounds[1][0] - bounds[0][0])
 		const lngRange = Math.abs(bounds[1][1] - bounds[0][1])
@@ -130,9 +161,29 @@ export default function DataLayer({ data, param, loading, setLoading, viewport, 
 		}
 	}
 
+	const handleTouch = (e) => {
+		const touch = e.changedTouches[0]
+		const startX = touch.clientX
+		const startY = touch.clientY
+
+		const handleTouchMove = (e) => {
+			const touch = e.changedTouches[0]
+			const deltaX = touch.clientX - startX
+			const deltaY = touch.clientY - startY
+			if (Math.abs(deltaX) > 10 || Math.abs(deltaY) > 10) {
+				handleDragMobile(e)
+			}
+		}
+		document.addEventListener("touchmove", handleTouchMove)
+		setTimeout(() => {
+			document.removeEventListener("touchmove", handleTouchMove)
+		}, 50)
+	}
+
+
 
 	return (
-		<div id='myplotlydiv' onMouseDown={handleClicks}>
+		<div id='myplotlydiv' onMouseDown={handleClicks} onTouchStart={handleDragMobile}>
 			{data && <Plot
 				data={plotData}
 				layout={layout}
