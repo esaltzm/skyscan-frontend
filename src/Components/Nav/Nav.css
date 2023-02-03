@@ -56,6 +56,15 @@
 .location {
     color: rgb(128, 128, 255)
 }
+.button-img {
+    height: 14px;
+    margin-left: -2px;
+}
+
+.location-img {
+    margin-left: -2px;
+    margin-top: 3px;
+}
 
 
 @media (max-width: 480px) {

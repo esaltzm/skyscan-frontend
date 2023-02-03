@@ -83,70 +83,49 @@ export default function DataLayer({ data, param, loading, setLoading, viewport, 
 	}
 
 	const handleDrag = (e) => {
-		const isTouchEvent = e.type === 'touchstart'
-		const initX = isTouchEvent ? e.touches[0].clientX : e.clientX
-		const initY = isTouchEvent ? e.touches[0].clientY : e.clientY
-
 		const latRange = bounds[1][0] - bounds[0][0]
 		const lngRange = bounds[1][1] - bounds[0][1]
 		const latPixels = height / latRange
 		const lngPixels = width / lngRange * -1
-
+		let initX = e.clientX, initY = e.clientY
 		const layer = document.getElementsByClassName('dragcover')[0]
 		layer.style.cursor = 'grab'
-
 		const onDragEnd = (e) => {
-			const isTouchEvent = e.type === 'touchend'
-			const clientX = isTouchEvent ? e.changedTouches[0].clientX : e.clientX
-			const clientY = isTouchEvent ? e.changedTouches[0].clientY : e.clientY
-
-			const [deltaX, deltaY] = [clientX - initX, clientY - initY]
+			const [deltaX, deltaY] = [e.clientX - initX, e.clientY - initY]
 			const newLat = viewport.latitude + deltaY / latPixels
 			const newLng = viewport.longitude + deltaX / lngPixels
-
 			const newViewport = { ...viewport }
 			newViewport.latitude = newLat
 			newViewport.longitude = newLng
-
 			if (Math.abs(deltaX) > 5 || Math.abs(deltaY) > 5) {
 				setLoading(true)
 				setViewport(newViewport)
 			}
-			document.removeEventListener(isTouchEvent ? 'touchend' : 'mouseup', onDragEnd)
+			document.removeEventListener('mouseup', onDragEnd)
 		}
-		document.addEventListener(isTouchEvent ? 'touchend' : 'mouseup', onDragEnd)
+		document.addEventListener('mouseup', onDragEnd)
 	}
 
-
 	const handleDoubleClick = (e) => {
-		const isTouchEvent = e.type === 'touchstart'
-		const clientX = isTouchEvent ? e.touches[0].clientX : e.clientX
-		const clientY = isTouchEvent ? e.touches[0].clientY : e.clientY
-
 		const latRange = Math.abs(bounds[1][0] - bounds[0][0])
 		const lngRange = Math.abs(bounds[1][1] - bounds[0][1])
 		const NW = [bounds[1][0], bounds[0][1]]
 		const latPixels = height / latRange
 		const lngPixels = width / lngRange
-
-		const newLat = NW[0] - clientY / latPixels
-		const newLng = NW[1] + clientX / lngPixels
-
+		const newLat = NW[0] - e.clientY / latPixels
+		const newLng = NW[1] + e.clientX / lngPixels
 		const newViewport = { ...viewport }
 		newViewport.latitude = newLat
 		newViewport.longitude = newLng
 		newViewport.zoom++
-
 		setViewport(newViewport)
 	}
 
-
 	const handleClicks = (e) => {
 		clearTimeout(timer.current)
-		const clickCount = e.type === 'touchend' ? e.changedTouches.length : e.detail
-		if (clickCount === 1) {
-			timer.current = setTimeout(() => handleDrag(e), 50)
-		} else if (clickCount === 2) {
+		if (e.detail === 1) {
+			timer.current = setTimeout(handleDrag(e), 50)
+		} else if (e.detail === 2) {
 			handleDoubleClick(e)
 		}
 	}
