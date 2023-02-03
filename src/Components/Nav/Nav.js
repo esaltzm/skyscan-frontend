@@ -30,6 +30,7 @@ export default function Nav({ viewport, setViewport, setLoading }) {
                 }
             }, () => {
                 toast.warn('Unable to retrieve your location')
+                setLoading(false)
             })
         }
     }
@@ -39,17 +40,17 @@ export default function Nav({ viewport, setViewport, setLoading }) {
             <div className='location Nav'>
                 <button className='zoom-button location'
                     onClick={() => { handleLocation() }}>
-                    <BiCurrentLocation />
+                    <div className='location-img'><img src='location.png' className='button-img' style={{ height: '18px' }} /></div>
                 </button>
             </div>
-            <div className="Nav" style={{ display: 'flex' }}>
+            <div className="plusminus Nav" style={{ display: 'flex' }}>
                 <button id='plusbtn' className='zoom-button plus'
                     onClick={() => { zoom(1) }}>
-                    <HiPlus />
+                    <div><img src='plus.png' className='button-img' /></div>
                 </button>
                 <button className='zoom-button minus'
                     onClick={() => { zoom(-1) }}>
-                    <HiMinus />
+                    <div><img src='minus.png' className='button-img' /></div>
                 </button>
             </div>
         </div>

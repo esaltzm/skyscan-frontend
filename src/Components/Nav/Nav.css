@@ -56,3 +56,34 @@
 .location {
     color: rgb(128, 128, 255)
 }
+
+
+@media (max-width: 480px) {
+    .button-img {
+        height: 16px;
+    }
+
+    .controls {
+        gap: 3px;
+    }
+
+    .zoom-button {
+        border-radius: 4px;
+        padding: 12px;
+    }
+
+    #nav {
+        bottom: 10px !important;
+
+    }
+
+    .plus,
+    .minus {
+        display: NONE;
+    }
+
+    .location-img {
+        margin-left: -9px;
+        margin-top: 3px;
+    }
+}
