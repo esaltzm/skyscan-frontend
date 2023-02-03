@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react'
 import Plot from 'react-plotly.js'
 import useWindowDimensions from '../WindowDimensions'
-import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock'
+import { useGesture } from "react-use-gesture"
 
 export default function DataLayer({ data, param, loading, setLoading, viewport, setViewport, bounds, paramRange }) {
 	const { height, width } = useWindowDimensions()
@@ -149,12 +149,28 @@ export default function DataLayer({ data, param, loading, setLoading, viewport, 
 		setViewport(newViewport)
 	}
 
+	const handlePinchMobile = (e) => {
+		e.preventDefault()
+		e.stopPropagation()
+	}
+
 	const handleClicks = (e) => {
 		clearTimeout(timer.current)
 		if (e.detail === 1) {
 			timer.current = setTimeout(handleDrag(e), 50)
 		} else if (e.detail === 2) {
 			handleDoubleClick(e)
+		}
+	}
+
+	const handleTouches = (e) => {
+		clearTimeout(timer.current)
+		if (e.touches.length === 1) {
+			console.log('drag event')
+			timer.current = setTimeout(handleDragMobile(e), 50)
+		} else if (e.touches.length === 2) {
+			console.log('pinch event')
+			handlePinchMobile(e)
 		}
 	}
 
@@ -169,7 +185,7 @@ export default function DataLayer({ data, param, loading, setLoading, viewport, 
 	}, [])
 
 	return (
-		<div id='myplotlydiv' onMouseDown={handleClicks} onTouchStart={handleDragMobile} ref={layer}>
+		<div id='myplotlydiv' onMouseDown={handleClicks} onTouchStart={handleTouches} ref={layer}>
 			{data && <Plot
 				data={plotData}
 				layout={layout}
