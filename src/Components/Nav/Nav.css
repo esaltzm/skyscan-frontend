@@ -83,13 +83,12 @@
         bottom: 10px !important;
     }
 
-    .plus,
-    .minus {
-        display: NONE;
-    }
-
     .location-img {
         margin-left: -7px;
         margin-top: 3px;
+    }
+
+    .pmimg {
+        margin-left: -8px;
     }
 }

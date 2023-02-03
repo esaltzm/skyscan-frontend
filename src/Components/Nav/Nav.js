@@ -46,11 +46,11 @@ export default function Nav({ viewport, setViewport, setLoading }) {
             <div className="plusminus Nav" style={{ display: 'flex' }}>
                 <button id='plusbtn' className='zoom-button plus'
                     onClick={() => { zoom(1) }}>
-                    <div><img src='plus.png' className='button-img' /></div>
+                    <div><img src='plus.png' className='button-img pmimg' /></div>
                 </button>
                 <button className='zoom-button minus'
                     onClick={() => { zoom(-1) }}>
-                    <div><img src='minus.png' className='button-img' /></div>
+                    <div><img src='minus.png' className='button-img pmimg' /></div>
                 </button>
             </div>
         </div>
