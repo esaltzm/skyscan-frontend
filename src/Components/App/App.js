@@ -12,7 +12,7 @@ import './App.css';
 // set limit on zoom and drag to those bounds
 // incorporate altitude data to temperature map
 // look into mapbox layers instead of plotly data layer
-// find middle ground between range(all data) and range(current view slice)
+// add daily check for year-long records? (ex. link to hottest/coldest location in past year)
 
 export default function App() {
 
