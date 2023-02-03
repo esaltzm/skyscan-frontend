@@ -12,7 +12,6 @@
     display: flex;
     gap: 0px;
     font-size: 20px;
-    box-sizing: border-box;
 }
 
 .zoom-button:hover {
@@ -38,8 +37,6 @@
 .minus {
     border-top: 0px;
     border-radius: 0px 0px 4px 4px;
-    font-weight: bold;
-    font-size: 25px;
 }
 
 #zoom {
@@ -56,6 +53,7 @@
 .location {
     color: rgb(128, 128, 255)
 }
+
 .button-img {
     height: 14px;
     margin-left: -2px;
